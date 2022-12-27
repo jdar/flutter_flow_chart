@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flow_chart/src/objects/oval_widget.dart';
 
+//person
+import 'package:flutter_flow_chart/src/objects/person_widget.dart';
+//and subtypes
+import 'package:flutter_flow_chart/src/objects/disabled_widget.dart';
+import 'package:flutter_flow_chart/src/objects/man_widget.dart';
+import 'package:flutter_flow_chart/src/objects/woman_widget.dart';
+import 'package:flutter_flow_chart/src/objects/elderly_woman_widget.dart';
+import 'package:flutter_flow_chart/src/objects/elderly_widget.dart';
+import 'package:flutter_flow_chart/src/objects/baby_widget.dart';
+import 'package:flutter_flow_chart/src/objects/guest_widget.dart';
+import 'package:flutter_flow_chart/src/objects/youth_widget.dart';
+
 import '../../flutter_flow_chart.dart';
 import '../objects/parallelogram_widget.dart';
 import 'element_handlers.dart';
@@ -76,6 +88,33 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.oval:
         element = OvalWidget(element: widget.element);
         break;
+      case ElementKind.person:
+        element = PersonWidget(element: widget.element);
+        break;
+      case ElementKind.disabled:
+        element = DisabledWidget(element: widget.element);
+        break;
+      case ElementKind.elderly:
+        element = ElderlyWidget(element: widget.element);
+        break;
+
+      case ElementKind.elderly_woman:
+        element = ElderlyWomanWidget(element: widget.element);
+        break;
+      case ElementKind.man:
+        element = ManWidget(element: widget.element);
+        break;
+      case ElementKind.woman:
+        element = WomanWidget(element: widget.element);
+        break;
+      case ElementKind.guest:
+        element = GuestWidget(element: widget.element);
+        break;
+
+      case ElementKind.youth:
+        element = YouthWidget(element: widget.element);
+        break;
+
       case ElementKind.parallelogram:
         element = ParallelogramWidget(element: widget.element);
         break;

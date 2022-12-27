@@ -9,6 +9,15 @@ enum ElementKind {
   diamond,
   storage,
   oval,
+  person,
+  disabled,
+  elderly,
+  elderly_woman,
+  man,
+  woman,
+  guest,
+  baby,
+  youth,
   parallelogram,
 }
 
@@ -41,6 +50,9 @@ class FlowElement extends ChangeNotifier {
 
   /// Makes text bold if true
   bool textIsBold;
+
+  /// Element data
+  Map<String, String> data;
 
   /// Element shape
   ElementKind kind;
@@ -76,6 +88,7 @@ class FlowElement extends ChangeNotifier {
     this.textColor = Colors.black,
     this.textSize = 24,
     this.textIsBold = false,
+    this.data = const <String, String>{},
     this.kind = ElementKind.rectangle,
     this.handlers = const [
       Handler.topCenter,
@@ -134,6 +147,12 @@ class FlowElement extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Set data
+  setData(Map<String, String> data) {
+    this.data = data;
+    notifyListeners();
+  }
+
   /// Set background color
   setBackgroundColor(Color color) {
     backgroundColor = color;
@@ -187,6 +206,7 @@ class FlowElement extends ChangeNotifier {
         textColor.hashCode ^
         textSize.hashCode ^
         textIsBold.hashCode ^
+        jsonEncode(data).hashCode ^ //TODO: benchmark
         id.hashCode ^
         kind.hashCode ^
         handlers.hashCode ^
@@ -208,6 +228,7 @@ class FlowElement extends ChangeNotifier {
       'textColor': textColor.value,
       'textSize': textSize,
       'textIsBold': textIsBold,
+      'jsonData': jsonEncode(data),
       'id': id,
       'kind': kind.index,
       'handlers': handlers.map((x) => x.index).toList(),
@@ -231,6 +252,7 @@ class FlowElement extends ChangeNotifier {
       textColor: Color(map['textColor'] as int),
       textSize: map['textSize'] as double,
       textIsBold: map['textIsBold'] as bool,
+      data: jsonDecode(map['jsonData']) as Map<String, String>,
       kind: ElementKind.values[map['kind'] as int],
       handlers: List<Handler>.from(
         (map['handlers'] as List<dynamic>).map<Handler>(
