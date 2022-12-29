@@ -52,7 +52,7 @@ class FlowElement extends ChangeNotifier {
   bool textIsBold;
 
   /// Element data
-  Map<String, String> data;
+  Map<String, dynamic> data;
 
   /// Element shape
   ElementKind kind;
@@ -148,7 +148,7 @@ class FlowElement extends ChangeNotifier {
   }
 
   /// Set data
-  setData(Map<String, String> data) {
+  setData(Map<String, dynamic> data) {
     this.data = data;
     notifyListeners();
   }
@@ -198,6 +198,78 @@ class FlowElement extends ChangeNotifier {
     return other.id == id;
   }
 
+  //like supplying toEncodeable, sort of.
+  String tryJsonEncode(Map<String, dynamic> foo) {
+    var out = <String, dynamic>{};
+    for (var e in foo.entries) {
+      var _k = e.key;
+      try {
+        if (_k.endsWith('_list') ||
+            _k.endsWith('_multiselect') ||
+            _k.endsWith('_filter')) {
+          out[e.key] = e.value.join(':');
+        } else if (_k.endsWith('_date') ||
+            _k.endsWith('_at') ||
+            _k.endsWith('_time')) {
+          out[_k] = e.value.toString();
+        } else if (e.key.endsWith('range_slider')) {
+          var r = e.value as RangeValues;
+          out[_k] = '${r.start}:${r.end}';
+        } else if (e.key.endsWith('_range')) {
+          var r = e.value as RangeValues;
+          out[_k] = '${r.start}:${r.end}';
+        } else {
+          jsonEncode(e.value);
+          out[_k] = e.value;
+        }
+      } catch (err) {
+        print('$e: $err ');
+      }
+    }
+    return jsonEncode(out);
+  }
+
+  static Map<String, dynamic> tryJsonDecode(dynamic obj) {
+    String jsonData = '';
+    try {
+      jsonData = obj as String;
+    } catch (_) {
+      print('not a string');
+      return <String, dynamic>{};
+    }
+
+    print('is string');
+
+    return jsonDecode(jsonData, reviver: (k, v) {
+      if (k is List) {
+        return <String>[];
+      }
+      if (k == null) {
+        //why is reviver being run on the fully-decoded list? Must be recursive.
+        return v;
+      }
+      var _k = k as String;
+      if (_k.endsWith('_list') ||
+          _k.endsWith('_multiselect') ||
+          _k.endsWith('_filter')) {
+        var vs = (v as String).split(':');
+        return vs;
+      } else if (_k.endsWith('range_date')) {
+        print('range date');
+        return DateTime.tryParse(v as String);
+      } else if (_k.endsWith('_date') ||
+          _k.endsWith('_at') ||
+          _k.endsWith('_time')) {
+        print('range date');
+        return DateTime.tryParse(v as String);
+      } else if (_k.endsWith('_range')) {
+        var vs = (v as String).split(':');
+        return RangeValues(double.parse(vs[0]), double.parse(vs[1]));
+      }
+      return v;
+    });
+  }
+
   @override
   int get hashCode {
     return position.hashCode ^
@@ -206,7 +278,7 @@ class FlowElement extends ChangeNotifier {
         textColor.hashCode ^
         textSize.hashCode ^
         textIsBold.hashCode ^
-        jsonEncode(data).hashCode ^ //TODO: benchmark
+        tryJsonEncode(data).hashCode ^ //TODO: benchmark
         id.hashCode ^
         kind.hashCode ^
         handlers.hashCode ^
@@ -228,7 +300,7 @@ class FlowElement extends ChangeNotifier {
       'textColor': textColor.value,
       'textSize': textSize,
       'textIsBold': textIsBold,
-      'jsonData': jsonEncode(data),
+      'jsonData': tryJsonEncode(data),
       'id': id,
       'kind': kind.index,
       'handlers': handlers.map((x) => x.index).toList(),
@@ -252,7 +324,8 @@ class FlowElement extends ChangeNotifier {
       textColor: Color(map['textColor'] as int),
       textSize: map['textSize'] as double,
       textIsBold: map['textIsBold'] as bool,
-      data: jsonDecode(map['jsonData']) as Map<String, String>,
+      //data: FlowElement.tryJsonDecode(map['jsonData'] as String),
+      data: FlowElement.tryJsonDecode(map['jsonData']),
       kind: ElementKind.values[map['kind'] as int],
       handlers: List<Handler>.from(
         (map['handlers'] as List<dynamic>).map<Handler>(
