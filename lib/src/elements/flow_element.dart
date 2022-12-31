@@ -10,13 +10,10 @@ enum ElementKind {
   storage,
   oval,
   person,
-  disabled,
-  elderly,
-  elderly_woman,
+  senior_man,
+  senior_woman,
   man,
   woman,
-  guest,
-  baby,
   youth,
   parallelogram,
 }
@@ -248,6 +245,7 @@ class FlowElement extends ChangeNotifier {
         //why is reviver being run on the fully-decoded list? Must be recursive.
         return v;
       }
+      if (k is int) return v;
       var _k = k as String;
       if (_k.endsWith('_list') ||
           _k.endsWith('_multiselect') ||

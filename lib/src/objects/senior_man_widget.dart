@@ -4,10 +4,10 @@ import '../elements/flow_element.dart';
 import 'element_text_widget.dart';
 
 /// A kind of element
-class DisabledWidget extends StatelessWidget {
+class SeniorManWidget extends StatelessWidget {
   final FlowElement element;
 
-  const DisabledWidget({
+  const SeniorManWidget({
     Key? key,
     required this.element,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class DisabledWidget extends StatelessWidget {
         children: [
           CustomPaint(
             size: element.size,
-            painter: _DisabledPainter(
+            painter: _SeniorManPainter(
               element: element,
             ),
           ),
@@ -32,16 +32,16 @@ class DisabledWidget extends StatelessWidget {
   }
 }
 
-class _DisabledPainter extends CustomPainter {
+class _SeniorManPainter extends CustomPainter {
   final FlowElement element;
 
-  _DisabledPainter({
+  _SeniorManPainter({
     required this.element,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final icon = Icons.personal_injury_outlined;
+    final icon = Icons.elderly;
     TextPainter textPainter = TextPainter(textDirection: TextDirection.rtl);
     textPainter.text = TextSpan(
         text: String.fromCharCode(icon.codePoint),
@@ -51,7 +51,7 @@ class _DisabledPainter extends CustomPainter {
             fontSize: 40.0,
             fontFamily: icon.fontFamily));
     textPainter.layout();
-    textPainter.paint(canvas, Offset(0.0, -50.0));
+    textPainter.paint(canvas, Offset(0.0, -10.0));
 
 /*
     final Paint paint = Paint();

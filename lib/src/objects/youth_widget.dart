@@ -51,7 +51,7 @@ class _YouthPainter extends CustomPainter {
             fontSize: 40.0,
             fontFamily: icon.fontFamily));
     textPainter.layout();
-    textPainter.paint(canvas, Offset(0.0, -50.0));
+    textPainter.paint(canvas, Offset(0.0, -10.0));
   }
 
   @override

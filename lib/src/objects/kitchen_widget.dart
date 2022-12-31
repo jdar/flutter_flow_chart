@@ -4,10 +4,10 @@ import '../elements/flow_element.dart';
 import 'element_text_widget.dart';
 
 /// A kind of element
-class ElderlyWomanWidget extends StatelessWidget {
+class KitchenWidget extends StatelessWidget {
   final FlowElement element;
 
-  const ElderlyWomanWidget({
+  const KitchenWidget({
     Key? key,
     required this.element,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class ElderlyWomanWidget extends StatelessWidget {
         children: [
           CustomPaint(
             size: element.size,
-            painter: _ElderlyWomanPainter(
+            painter: _KitchenPainter(
               element: element,
             ),
           ),
@@ -32,16 +32,16 @@ class ElderlyWomanWidget extends StatelessWidget {
   }
 }
 
-class _ElderlyWomanPainter extends CustomPainter {
+class _KitchenPainter extends CustomPainter {
   final FlowElement element;
 
-  _ElderlyWomanPainter({
+  _KitchenPainter({
     required this.element,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final icon = Icons.elderly_woman;
+    final icon = Icons.soup_kitchen_outlined;
     TextPainter textPainter = TextPainter(textDirection: TextDirection.rtl);
     textPainter.text = TextSpan(
         text: String.fromCharCode(icon.codePoint),
@@ -51,7 +51,7 @@ class _ElderlyWomanPainter extends CustomPainter {
             fontSize: 40.0,
             fontFamily: icon.fontFamily));
     textPainter.layout();
-    textPainter.paint(canvas, Offset(0.0, -50.0));
+    textPainter.paint(canvas, Offset(0.0, -10.0));
 
 /*
     final Paint paint = Paint();

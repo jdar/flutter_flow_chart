@@ -7,8 +7,8 @@ import 'package:flutter_flow_chart/src/objects/person_widget.dart';
 import 'package:flutter_flow_chart/src/objects/disabled_widget.dart';
 import 'package:flutter_flow_chart/src/objects/man_widget.dart';
 import 'package:flutter_flow_chart/src/objects/woman_widget.dart';
-import 'package:flutter_flow_chart/src/objects/elderly_woman_widget.dart';
-import 'package:flutter_flow_chart/src/objects/elderly_widget.dart';
+import 'package:flutter_flow_chart/src/objects/senior_woman_widget.dart';
+import 'package:flutter_flow_chart/src/objects/senior_man_widget.dart';
 import 'package:flutter_flow_chart/src/objects/baby_widget.dart';
 import 'package:flutter_flow_chart/src/objects/guest_widget.dart';
 import 'package:flutter_flow_chart/src/objects/youth_widget.dart';
@@ -94,12 +94,12 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.disabled:
         element = DisabledWidget(element: widget.element);
         break;
-      case ElementKind.elderly:
-        element = ElderlyWidget(element: widget.element);
+      case ElementKind.senior_man:
+        element = senior_manWidget(element: widget.element);
         break;
 
-      case ElementKind.elderly_woman:
-        element = ElderlyWomanWidget(element: widget.element);
+      case ElementKind.senior_woman:
+        element = senior_manWomanWidget(element: widget.element);
         break;
       case ElementKind.man:
         element = ManWidget(element: widget.element);
