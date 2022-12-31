@@ -4,14 +4,13 @@ import 'package:flutter_flow_chart/src/objects/oval_widget.dart';
 //person
 import 'package:flutter_flow_chart/src/objects/person_widget.dart';
 //and subtypes
-import 'package:flutter_flow_chart/src/objects/disabled_widget.dart';
 import 'package:flutter_flow_chart/src/objects/man_widget.dart';
 import 'package:flutter_flow_chart/src/objects/woman_widget.dart';
 import 'package:flutter_flow_chart/src/objects/senior_woman_widget.dart';
 import 'package:flutter_flow_chart/src/objects/senior_man_widget.dart';
-import 'package:flutter_flow_chart/src/objects/baby_widget.dart';
-import 'package:flutter_flow_chart/src/objects/guest_widget.dart';
 import 'package:flutter_flow_chart/src/objects/youth_widget.dart';
+import 'package:flutter_flow_chart/src/objects/kitchen_widget.dart';
+import 'package:flutter_flow_chart/src/objects/house_widget.dart';
 
 import '../../flutter_flow_chart.dart';
 import '../objects/parallelogram_widget.dart';
@@ -91,15 +90,11 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.person:
         element = PersonWidget(element: widget.element);
         break;
-      case ElementKind.disabled:
-        element = DisabledWidget(element: widget.element);
-        break;
       case ElementKind.senior_man:
-        element = senior_manWidget(element: widget.element);
+        element = SeniorManWidget(element: widget.element);
         break;
-
       case ElementKind.senior_woman:
-        element = senior_manWomanWidget(element: widget.element);
+        element = SeniorWomanWidget(element: widget.element);
         break;
       case ElementKind.man:
         element = ManWidget(element: widget.element);
@@ -107,10 +102,6 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.woman:
         element = WomanWidget(element: widget.element);
         break;
-      case ElementKind.guest:
-        element = GuestWidget(element: widget.element);
-        break;
-
       case ElementKind.youth:
         element = YouthWidget(element: widget.element);
         break;
@@ -118,7 +109,14 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.parallelogram:
         element = ParallelogramWidget(element: widget.element);
         break;
+      case ElementKind.kitchen:
+        element = KitchenWidget(element: widget.element);
+        break;
+      case ElementKind.house:
+        element = HouseWidget(element: widget.element);
+        break;
       case ElementKind.rectangle:
+
       default:
         element = RectangleWidget(element: widget.element);
     }

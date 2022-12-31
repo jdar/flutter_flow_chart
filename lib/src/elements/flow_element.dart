@@ -16,6 +16,8 @@ enum ElementKind {
   woman,
   youth,
   parallelogram,
+  kitchen,
+  house,
 }
 
 enum Handler {
