@@ -41,12 +41,13 @@ class _HousePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final icon = Icons.home_rounded;
+    final icon = Icons.home_outlined;
     TextPainter textPainter = TextPainter(textDirection: TextDirection.rtl);
     textPainter.text = TextSpan(
         text: String.fromCharCode(icon.codePoint),
         style: TextStyle(
             color: element.borderColor,
+            fontWeight: FontWeight.w100,
             fontSize: 400.0,
             fontFamily: icon.fontFamily));
     textPainter.layout();

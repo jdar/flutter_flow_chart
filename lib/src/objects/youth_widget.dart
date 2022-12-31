@@ -46,12 +46,11 @@ class _YouthPainter extends CustomPainter {
     textPainter.text = TextSpan(
         text: String.fromCharCode(icon.codePoint),
         style: TextStyle(
-            backgroundColor: element.borderColor,
-            color: element.backgroundColor,
-            fontSize: 40.0,
+            color: element.borderColor,
+            fontSize: 80.0,
             fontFamily: icon.fontFamily));
     textPainter.layout();
-    textPainter.paint(canvas, Offset(0.0, -10.0));
+    textPainter.paint(canvas, Offset(0.0, 0.0));
   }
 
   @override

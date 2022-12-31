@@ -76,7 +76,7 @@ class _GridBackgroundPainter extends CustomPainter {
       } else {
         paint.strokeWidth = params.gridThickness;
       }
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+      //canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
       x += params.gridSquare;
       n++;
     }
@@ -89,7 +89,7 @@ class _GridBackgroundPainter extends CustomPainter {
       } else {
         paint.strokeWidth = params.gridThickness;
       }
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
+      //canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
       y += params.gridSquare;
       n++;
     }
