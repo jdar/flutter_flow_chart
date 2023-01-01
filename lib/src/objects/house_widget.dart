@@ -22,89 +22,30 @@ class HouseWidget extends StatelessWidget {
         builder: (c, snapshot) {
           if (!snapshot.hasData) return Container();
 
-          return SizedBox(
-              width: element.size.width,
-              height: element.size.height,
-              child: Stack(
-                children: [
-                  IgnorePointer(
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                            child: LimitedBox(
-                          maxHeight: MediaQuery.of(context).size.height * 7 / 8,
-                          maxWidth: MediaQuery.of(context).size.width * 7 / 8,
-                          child: SvgPicture.asset(
-                            //NOPE 'lib/assets/home.svg',
-                            'lib/assets/home.svg',
-                            //'asset/home.svg',
-                            package: 'flutter_flow_chart',
-                            color: Colors.black,
-                            height: (MediaQuery.of(context).size.height * 7)
-                                    .round()
-                                    .toString() +
-                                'px',
-                            width: (MediaQuery.of(context).size.width * 7)
-                                    .round()
-                                    .toString() +
-                                'px',
-                          ),
-                        ))),
+          return IgnorePointer(
+            child: Center(
+              child: Stack(children: <Widget>[
+                SvgPicture.asset(
+                  'lib/assets/home.svg',
+                  package: 'flutter_flow_chart',
+                  color: Colors.black,
+                ),
+/* DEBUGGING:
+                Positioned.fill(
+                  child: Container(
+                    color: Colors.blue.withOpacity(0.2),
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      // Do whatever you want here
+                      return Text(constraints.toString());
+                    }),
                   ),
-                  //CustomPaint( size: element.size, painter: _HousePainter( element: element,),),
-                  //ElementTextWidget(element: element),
-                ],
-              ));
+                ),
+*/
+              ]),
+            ),
+            //CustomPaint( size: element.size, painter: _HousePainter( element: element,),),
+            //ElementTextWidget(element: element),
+          );
         });
   }
-}
-
-class _HousePainter extends CustomPainter {
-  final FlowElement element;
-
-  _HousePainter({
-    required this.element,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final icon = Icons.home_outlined;
-    TextPainter textPainter = TextPainter(textDirection: TextDirection.rtl);
-    textPainter.text = TextSpan(
-        text: String.fromCharCode(icon.codePoint),
-        style: TextStyle(
-            color: element.borderColor,
-            fontWeight: FontWeight.w100,
-            fontSize: 400.0,
-            fontFamily: icon.fontFamily));
-    textPainter.layout();
-    textPainter.paint(canvas, Offset(0.0, 0.0));
-
-/*
-    final Paint paint = Paint();
-    Path path = Path();
-
-    paint.style = PaintingStyle.fill;
-    paint.color = element.backgroundColor;
-
-    path.addOval(Rect.fromLTWH(0, 0, size.width, size.height));
-    if (element.elevation > 0.01) {
-      canvas.drawShadow(
-        path.shift(Offset(element.elevation, element.elevation)),
-        Colors.black,
-        element.elevation,
-        true,
-      );
-    }
-    canvas.drawPath(path, paint);
-
-    paint.strokeWidth = element.borderThickness;
-    paint.color = element.borderColor;
-    paint.style = PaintingStyle.stroke;
-    canvas.drawPath(path, paint);
-*/
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
