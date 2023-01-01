@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../elements/flow_element.dart';
 import 'element_text_widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 /// A kind of element
 class HouseWidget extends StatelessWidget {
@@ -14,21 +15,47 @@ class HouseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: element.size.width,
-      height: element.size.height,
-      child: Stack(
-        children: [
-          CustomPaint(
-            size: element.size,
-            painter: _HousePainter(
-              element: element,
-            ),
-          ),
-          ElementTextWidget(element: element),
-        ],
-      ),
-    );
+    var bundle = DefaultAssetBundle.of(context);
+//Map _json = json.decode(assets);
+    return FutureBuilder<String>(
+        future: bundle.loadString('AssetManifest.json'),
+        builder: (c, snapshot) {
+          if (!snapshot.hasData) return Container();
+
+          return SizedBox(
+              width: element.size.width,
+              height: element.size.height,
+              child: Stack(
+                children: [
+                  IgnorePointer(
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                            child: LimitedBox(
+                          maxHeight: MediaQuery.of(context).size.height * 7 / 8,
+                          maxWidth: MediaQuery.of(context).size.width * 7 / 8,
+                          child: SvgPicture.asset(
+                            //NOPE 'lib/assets/home.svg',
+                            'lib/assets/home.svg',
+                            //'asset/home.svg',
+                            package: 'flutter_flow_chart',
+                            color: Colors.black,
+                            height: (MediaQuery.of(context).size.height * 7)
+                                    .round()
+                                    .toString() +
+                                'px',
+                            width: (MediaQuery.of(context).size.width * 7)
+                                    .round()
+                                    .toString() +
+                                'px',
+                          ),
+                        ))),
+                  ),
+                  //CustomPaint( size: element.size, painter: _HousePainter( element: element,),),
+                  //ElementTextWidget(element: element),
+                ],
+              ));
+        });
   }
 }
 
