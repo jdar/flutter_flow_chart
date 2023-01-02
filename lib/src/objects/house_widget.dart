@@ -40,7 +40,7 @@ class HouseWidget extends StatelessWidget {
                     }),
                   ),
                 ),
-*/
+ end DEBUGGING */
               ]),
             ),
             //CustomPaint( size: element.size, painter: _HousePainter( element: element,),),
