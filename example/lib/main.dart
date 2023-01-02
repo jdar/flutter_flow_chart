@@ -169,7 +169,17 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () => dashboard.removeElement(element),
             child: const Text('Delete'),
           ),
-          TextMenu(element: element),
+          //TESTING: TextMenu(element: element),
+          SizedBox(
+            width: 200,
+            child: SingleChildScrollView(
+              child: TextField(
+// set the height of the TextField to a fixed value
+                style: const TextStyle(height: 1.5),
+// other TextField properties go here
+              ),
+            ),
+          ),
           InkWell(
             onTap: () {
               dashboard.removeElementConnections(element);
