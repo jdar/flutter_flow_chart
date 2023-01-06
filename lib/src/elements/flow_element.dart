@@ -190,6 +190,17 @@ class FlowElement extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool hasOther(String dataKey) {
+    return data.containsKey(dataKey) && data[dataKey].contains('other');
+  }
+
+  dynamic rawValue(String dataKey, dynamic defaultValue) {
+    if (data.containsKey(dataKey)) {
+      return data[dataKey];
+    }
+    return defaultValue;
+  }
+
   @override
   bool operator ==(covariant FlowElement other) {
     if (identical(this, other)) return true;
