@@ -27,7 +27,7 @@ class ElementWidget extends StatefulWidget {
   final FlowElement element;
   final Function(BuildContext context, Offset position)? onElementPressed;
   final Function(BuildContext context, Offset position)? onElementLongPressed;
-  final Function(BuildContext context, Offset position)? onDragUpdate;
+  final Function(Offset position)? onDragUpdate;
   final Function(
     BuildContext context,
     Offset position,
@@ -181,7 +181,8 @@ class _ElementWidgetState extends State<ElementWidget> {
               child: element,
             ),
             onDragUpdate: (details) {
-              widget.onDragUpdate?.call();
+              widget.onDragUpdate
+                  ?.call(details.offset - widget.dashboard.dashboardPosition);
               widget.element.changePosition(details.globalPosition -
                   widget.dashboard.dashboardPosition -
                   delta);
