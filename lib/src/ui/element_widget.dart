@@ -10,6 +10,7 @@ import 'package:flutter_flow_chart/src/objects/senior_woman_widget.dart';
 import 'package:flutter_flow_chart/src/objects/senior_man_widget.dart';
 import 'package:flutter_flow_chart/src/objects/youth_widget.dart';
 import 'package:flutter_flow_chart/src/objects/kitchen_widget.dart';
+import 'package:flutter_flow_chart/src/objects/appliance_microwave_widget.dart';
 import 'package:flutter_flow_chart/src/objects/house_widget.dart';
 
 import '../../flutter_flow_chart.dart';
@@ -111,6 +112,9 @@ class _ElementWidgetState extends State<ElementWidget> {
         break;
       case ElementKind.kitchen:
         element = KitchenWidget(element: widget.element);
+        break;
+      case ElementKind.microwave:
+        element = ApplianceMicrowaveWidget(element: widget.element);
         break;
       case ElementKind.house:
         element = HouseWidget(element: widget.element);

@@ -17,6 +17,7 @@ enum ElementKind {
   youth,
   parallelogram,
   kitchen,
+  microwave,
   house,
 }
 
