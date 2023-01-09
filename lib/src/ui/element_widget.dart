@@ -181,8 +181,9 @@ class _ElementWidgetState extends State<ElementWidget> {
               child: element,
             ),
             onDragUpdate: (details) {
-              widget.onDragUpdate
-                  ?.call(details.offset - widget.dashboard.dashboardPosition);
+              widget.onDragUpdate?.call(details.globalPosition -
+                  widget.dashboard.dashboardPosition -
+                  delta);
               widget.element.changePosition(details.globalPosition -
                   widget.dashboard.dashboardPosition -
                   delta);
