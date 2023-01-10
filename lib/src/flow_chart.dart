@@ -74,6 +74,15 @@ class _FlowChartState extends State<FlowChart> {
     if (mounted) setState(() {});
   }
 
+  var isAlreadyLoaded = false;
+  Future<bool> alreadyLoaded() async {
+    if (isAlreadyLoaded) return true;
+    var bundle = DefaultAssetBundle.of(context);
+    await bundle.loadString('AssetManifest.json');
+    isAlreadyLoaded = true;
+    return isAlreadyLoaded;
+  }
+
   @override
   Widget build(BuildContext context) {
     /// get dashboard position after first frame is drawn
@@ -89,80 +98,89 @@ class _FlowChartState extends State<FlowChart> {
 
     GlobalKey gridKey = GlobalKey();
     Offset tapDown = Offset.zero;
-    return ClipRect(
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // Draw the grid
-          Positioned.fill(
-            child: GestureDetector(
-              onTapDown: (details) {
-                tapDown = details.localPosition;
-              },
-              onTap: widget.onDashboardTapped == null
-                  ? null
-                  : () => widget.onDashboardTapped!(
-                        gridKey.currentContext!,
-                        tapDown,
-                      ),
-              onLongPress: widget.onDashboardLongtTapped == null
-                  ? null
-                  : () => widget.onDashboardLongtTapped!(
-                        gridKey.currentContext!,
-                        tapDown,
-                      ),
-              child: GridBackground(
-                key: gridKey,
-                params: widget.dashboard.gridBackgroundParams,
-              ),
+    return FutureBuilder<bool>(
+        future: alreadyLoaded(),
+        builder: (c, snapshot) {
+          if (!snapshot.hasData) return Container();
+          return ClipRect(
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                // Draw the grid
+                Positioned.fill(
+                  child: GestureDetector(
+                    onTapDown: (details) {
+                      tapDown = details.localPosition;
+                    },
+                    onTap: widget.onDashboardTapped == null
+                        ? null
+                        : () => widget.onDashboardTapped!(
+                              gridKey.currentContext!,
+                              tapDown,
+                            ),
+                    onLongPress: widget.onDashboardLongtTapped == null
+                        ? null
+                        : () => widget.onDashboardLongtTapped!(
+                              gridKey.currentContext!,
+                              tapDown,
+                            ),
+                    child: GridBackground(
+                      key: gridKey,
+                      params: widget.dashboard.gridBackgroundParams,
+                    ),
+                  ),
+                ),
+                // Draw elements
+                for (int i = 0; i < widget.dashboard.elements.length; i++)
+                  ElementWidget(
+                    key: UniqueKey(),
+                    dashboard: widget.dashboard,
+                    element: widget.dashboard.elements.elementAt(i),
+                    onElementPressed: widget.onElementPressed == null
+                        ? null
+                        : (context, position) => widget.onElementPressed!(
+                              context,
+                              position,
+                              widget.dashboard.elements.elementAt(i),
+                            ),
+                    onElementLongPressed: widget.onElementLongPressed == null
+                        ? null
+                        : (context, position) => widget.onElementLongPressed!(
+                              context,
+                              position,
+                              widget.dashboard.elements.elementAt(i),
+                            ),
+                    onHandlerPressed: widget.onHandlerPressed == null
+                        ? null
+                        : (context, position, handler, element) =>
+                            widget.onHandlerPressed!(
+                                context, position, handler, element),
+                    onHandlerLongPressed: widget.onHandlerLongPressed == null
+                        ? null
+                        : (context, position, handler, element) =>
+                            widget.onHandlerLongPressed!(
+                                context, position, handler, element),
+                  ),
+                // Draw arrows
+                for (int i = 0; i < widget.dashboard.elements.length; i++)
+                  for (int n = 0;
+                      n < widget.dashboard.elements[i].next.length;
+                      n++)
+                    DrawArrow(
+                      key: UniqueKey(),
+                      srcElement: widget.dashboard.elements[i],
+                      destElement: widget.dashboard.elements[widget.dashboard
+                          .findElementIndexById(widget
+                              .dashboard.elements[i].next[n].destElementId)],
+                      arrowParams:
+                          widget.dashboard.elements[i].next[n].arrowParams,
+                    ),
+                // user drawing when connecting elements
+                const DrawingArrowWidget(),
+              ],
             ),
-          ),
-          // Draw elements
-          for (int i = 0; i < widget.dashboard.elements.length; i++)
-            ElementWidget(
-              key: UniqueKey(),
-              dashboard: widget.dashboard,
-              element: widget.dashboard.elements.elementAt(i),
-              onElementPressed: widget.onElementPressed == null
-                  ? null
-                  : (context, position) => widget.onElementPressed!(
-                        context,
-                        position,
-                        widget.dashboard.elements.elementAt(i),
-                      ),
-              onElementLongPressed: widget.onElementLongPressed == null
-                  ? null
-                  : (context, position) => widget.onElementLongPressed!(
-                        context,
-                        position,
-                        widget.dashboard.elements.elementAt(i),
-                      ),
-              onHandlerPressed: widget.onHandlerPressed == null
-                  ? null
-                  : (context, position, handler, element) => widget
-                      .onHandlerPressed!(context, position, handler, element),
-              onHandlerLongPressed: widget.onHandlerLongPressed == null
-                  ? null
-                  : (context, position, handler, element) =>
-                      widget.onHandlerLongPressed!(
-                          context, position, handler, element),
-            ),
-          // Draw arrows
-          for (int i = 0; i < widget.dashboard.elements.length; i++)
-            for (int n = 0; n < widget.dashboard.elements[i].next.length; n++)
-              DrawArrow(
-                key: UniqueKey(),
-                srcElement: widget.dashboard.elements[i],
-                destElement: widget.dashboard.elements[widget.dashboard
-                    .findElementIndexById(
-                        widget.dashboard.elements[i].next[n].destElementId)],
-                arrowParams: widget.dashboard.elements[i].next[n].arrowParams,
-              ),
-          // user drawing when connecting elements
-          const DrawingArrowWidget(),
-        ],
-      ),
-    );
+          );
+        });
   }
 }
 

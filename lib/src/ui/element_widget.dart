@@ -10,7 +10,14 @@ import 'package:flutter_flow_chart/src/objects/senior_woman_widget.dart';
 import 'package:flutter_flow_chart/src/objects/senior_man_widget.dart';
 import 'package:flutter_flow_chart/src/objects/youth_widget.dart';
 import 'package:flutter_flow_chart/src/objects/kitchen_widget.dart';
+import 'package:flutter_flow_chart/src/objects/room_living_room_widget.dart';
+import 'package:flutter_flow_chart/src/objects/room_laundry_room_widget.dart';
+import 'package:flutter_flow_chart/src/objects/room_closet_widget.dart';
+import 'package:flutter_flow_chart/src/objects/room_bedroom_widget.dart';
+import 'package:flutter_flow_chart/src/objects/room_bathroom_widget.dart';
+import 'package:flutter_flow_chart/src/objects/room_office_widget.dart';
 import 'package:flutter_flow_chart/src/objects/appliance_microwave_widget.dart';
+import 'package:flutter_flow_chart/src/objects/appliance_other_widget.dart';
 import 'package:flutter_flow_chart/src/objects/house_widget.dart';
 
 import '../../flutter_flow_chart.dart';
@@ -115,8 +122,30 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.kitchen:
         element = KitchenWidget(element: widget.element);
         break;
+
+      case ElementKind.living_room:
+        element = RoomLivingRoomWidget(element: widget.element);
+        break;
+      case ElementKind.laundry_room:
+        element = RoomLaundryRoomWidget(element: widget.element);
+        break;
+      case ElementKind.closet:
+        element = RoomClosetWidget(element: widget.element);
+        break;
+      case ElementKind.bedroom:
+        element = RoomBedroomWidget(element: widget.element);
+        break;
+      case ElementKind.bathroom:
+        element = RoomBathroomWidget(element: widget.element);
+        break;
+      case ElementKind.office:
+        element = RoomOfficeWidget(element: widget.element);
+        break;
       case ElementKind.microwave:
         element = ApplianceMicrowaveWidget(element: widget.element);
+        break;
+      case ElementKind.appliance_other:
+        element = ApplianceOtherWidget(element: widget.element);
         break;
       case ElementKind.house:
         element = HouseWidget(element: widget.element);

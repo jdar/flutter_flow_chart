@@ -16,8 +16,21 @@ enum ElementKind {
   woman,
   youth,
   parallelogram,
+
+//room
   kitchen,
+  living_room,
+  laundry_room,
+  office,
+  closet,
+  bedroom,
+  bathroom,
+
+//appliances
   microwave,
+  appliance_other,
+
+//other
   house,
 }
 
