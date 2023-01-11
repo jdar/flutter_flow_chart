@@ -22,6 +22,8 @@ enum ElementKind {
   living_room,
   laundry_room,
   office,
+  other_indoor,
+  other_outdoor,
   closet,
   bedroom,
   bathroom,

@@ -16,6 +16,9 @@ import 'package:flutter_flow_chart/src/objects/room_closet_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_bedroom_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_bathroom_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_office_widget.dart';
+import 'package:flutter_flow_chart/src/objects/room_other_indoor_widget.dart';
+import 'package:flutter_flow_chart/src/objects/room_other_outdoor_widget.dart';
+
 import 'package:flutter_flow_chart/src/objects/appliance_microwave_widget.dart';
 import 'package:flutter_flow_chart/src/objects/appliance_other_widget.dart';
 import 'package:flutter_flow_chart/src/objects/house_widget.dart';
@@ -140,6 +143,12 @@ class _ElementWidgetState extends State<ElementWidget> {
         break;
       case ElementKind.office:
         element = RoomOfficeWidget(element: widget.element);
+        break;
+      case ElementKind.other_indoor:
+        element = RoomOtherIndoorWidget(element: widget.element);
+        break;
+      case ElementKind.other_outdoor:
+        element = RoomOtherOutdoorWidget(element: widget.element);
         break;
       case ElementKind.microwave:
         element = ApplianceMicrowaveWidget(element: widget.element);
