@@ -18,6 +18,7 @@ class Dashboard extends ChangeNotifier {
   Size dashboardSize;
   Offset handlerFeedbackOffset;
   GridBackgroundParams gridBackgroundParams;
+  ChangeNotifier observeDeeply = ChangeNotifier();
 
   Dashboard()
       : elements = [],
@@ -50,6 +51,9 @@ class Dashboard extends ChangeNotifier {
       element.id = const Uuid().v4();
     }
     elements.add(element);
+    element.addListener(() {
+      observeDeeply.notifyListeners();
+    });
     if (notify) {
       notifyListeners();
     }
@@ -85,12 +89,20 @@ class Dashboard extends ChangeNotifier {
     }
     element.next.removeWhere((handlerParam) =>
         handlerParam.arrowParams.startArrowPosition == alignment);
+
+    element.addListener(() {
+      observeDeeply.notifyListeners();
+    });
     notifyListeners();
   }
 
   /// remove all the connection from the [element]
   removeElementConnections(FlowElement element) {
     element.next.clear();
+
+    element.addListener(() {
+      observeDeeply.notifyListeners();
+    });
     notifyListeners();
   }
 
@@ -101,6 +113,9 @@ class Dashboard extends ChangeNotifier {
     elements.removeWhere((element) {
       if (element.id == id) {
         elementId = element.id;
+        element.addListener(() {
+          observeDeeply.notifyListeners();
+        });
       }
       return element.id == id;
     });
@@ -111,6 +126,7 @@ class Dashboard extends ChangeNotifier {
         return elementId.contains(handlerParams.destElementId);
       });
     }
+
     notifyListeners();
   }
 
@@ -121,7 +137,13 @@ class Dashboard extends ChangeNotifier {
     bool found = false;
     String elementId = element.id;
     elements.removeWhere((e) {
-      if (e.id == element.id) found = true;
+      if (e.id == element.id) {
+        found = true;
+        element.addListener(() {
+          observeDeeply.notifyListeners();
+        });
+        notifyListeners();
+      }
       return e.id == element.id;
     });
 
@@ -130,7 +152,6 @@ class Dashboard extends ChangeNotifier {
       e.next.removeWhere(
           (handlerParams) => handlerParams.destElementId == elementId);
     }
-    notifyListeners();
     return found;
   }
 

@@ -4,7 +4,6 @@ import '../elements/flow_element.dart';
 import 'element_text_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-/// A kind of element
 class HouseWidget extends StatelessWidget {
   final FlowElement element;
 
@@ -15,21 +14,14 @@ class HouseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bundle = DefaultAssetBundle.of(context);
-//Map _json = json.decode(assets);
-    return FutureBuilder<String>(
-        future: bundle.loadString('AssetManifest.json'),
-        builder: (c, snapshot) {
-          if (!snapshot.hasData) return Container();
-
-          return IgnorePointer(
-            child: Center(
-              child: Stack(children: <Widget>[
-                SvgPicture.asset(
-                  'lib/assets/home.svg',
-                  package: 'flutter_flow_chart',
-                  color: Colors.black,
-                ),
+    return IgnorePointer(
+      child: Center(
+        child: Stack(children: <Widget>[
+          SvgPicture.asset(
+            'lib/assets/home.svg',
+            package: 'flutter_flow_chart',
+            color: Colors.black,
+          ),
 /* DEBUGGING:
                 Positioned.fill(
                   child: Container(
@@ -41,11 +33,8 @@ class HouseWidget extends StatelessWidget {
                   ),
                 ),
  end DEBUGGING */
-              ]),
-            ),
-            //CustomPaint( size: element.size, painter: _HousePainter( element: element,),),
-            //ElementTextWidget(element: element),
-          );
-        });
+        ]),
+      ),
+    );
   }
 }
