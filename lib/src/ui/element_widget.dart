@@ -5,6 +5,7 @@ import 'package:flutter_flow_chart/src/objects/oval_widget.dart';
 import 'package:flutter_flow_chart/src/objects/person_widget.dart';
 //and subtypes
 import 'package:flutter_flow_chart/src/objects/man_widget.dart';
+import 'package:flutter_flow_chart/src/objects/room_all_widget.dart';
 import 'package:flutter_flow_chart/src/objects/woman_widget.dart';
 import 'package:flutter_flow_chart/src/objects/senior_woman_widget.dart';
 import 'package:flutter_flow_chart/src/objects/senior_man_widget.dart';
@@ -122,33 +123,52 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.parallelogram:
         element = ParallelogramWidget(element: widget.element);
         break;
-      case ElementKind.kitchen:
-        element = KitchenWidget(element: widget.element);
-        break;
 
-      case ElementKind.living_room:
-        element = RoomLivingRoomWidget(element: widget.element);
-        break;
-      case ElementKind.laundry_room:
-        element = RoomLaundryRoomWidget(element: widget.element);
-        break;
-      case ElementKind.closet:
-        element = RoomClosetWidget(element: widget.element);
+      // case ElementKind.living_room:
+      //   element = RoomLivingRoomWidget(element: widget.element);
+      //   break;
+      // case ElementKind.laundry_room:
+      //   element = RoomLaundryRoomWidget(element: widget.element);
+      //   break;
+      // case ElementKind.closet:
+      //   element = RoomClosetWidget(element: widget.element);
+      //   break;
+      //       kitchen(ElementKind.kitchen, Icons.soup_kitchen_outlined),
+      case ElementKind.kitchen:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.soup_kitchen_outlined,
+        );
         break;
       case ElementKind.bedroom:
-        element = RoomBedroomWidget(element: widget.element);
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.bedroom_parent,
+        );
         break;
       case ElementKind.bathroom:
-        element = RoomBathroomWidget(element: widget.element);
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.wash_rounded,
+        );
         break;
-      case ElementKind.office:
-        element = RoomOfficeWidget(element: widget.element);
+      case ElementKind.office_sala:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.meeting_room,
+        );
         break;
       case ElementKind.other_indoor:
-        element = RoomOtherIndoorWidget(element: widget.element);
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.outlet,
+        );
         break;
       case ElementKind.other_outdoor:
-        element = RoomOtherOutdoorWidget(element: widget.element);
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.deck,
+        );
         break;
       case ElementKind.microwave:
         element = ApplianceMicrowaveWidget(element: widget.element);

@@ -4,12 +4,14 @@ import '../elements/flow_element.dart';
 import 'element_text_widget.dart';
 
 /// A kind of element
-class RoomOtherIndoorWidget extends StatelessWidget {
+class RoomAllWidget extends StatelessWidget {
   final FlowElement element;
+  final IconData widgetIcon;
 
-  const RoomOtherIndoorWidget({
+  const RoomAllWidget({
     Key? key,
     required this.element,
+    this.widgetIcon = Icons.abc,
   }) : super(key: key);
 
   @override
@@ -21,8 +23,9 @@ class RoomOtherIndoorWidget extends StatelessWidget {
         children: [
           CustomPaint(
             size: element.size,
-            painter: _Painter(
+            painter: _RoomAllPainter(
               element: element,
+              widgetIcon: widgetIcon,
             ),
           ),
           ElementTextWidget(element: element),
@@ -32,16 +35,15 @@ class RoomOtherIndoorWidget extends StatelessWidget {
   }
 }
 
-class _Painter extends CustomPainter {
+class _RoomAllPainter extends CustomPainter {
   final FlowElement element;
+  final IconData widgetIcon;
 
-  _Painter({
-    required this.element,
-  });
+  _RoomAllPainter({required this.element, required this.widgetIcon});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final icon = Icons.outlet;
+    final icon = widgetIcon;
     TextPainter textPainter = TextPainter(textDirection: TextDirection.rtl);
     textPainter.text = TextSpan(
         text: String.fromCharCode(icon.codePoint),
@@ -51,30 +53,6 @@ class _Painter extends CustomPainter {
             fontFamily: icon.fontFamily));
     textPainter.layout();
     textPainter.paint(canvas, Offset(10.0, 10.0));
-
-/*
-    final Paint paint = Paint();
-    Path path = Path();
-
-    paint.style = PaintingStyle.fill;
-    paint.color = element.backgroundColor;
-
-    path.addOval(Rect.fromLTWH(0, 0, size.width, size.height));
-    if (element.elevation > 0.01) {
-      canvas.drawShadow(
-        path.shift(Offset(element.elevation, element.elevation)),
-        Colors.black,
-        element.elevation,
-        true,
-      );
-    }
-    canvas.drawPath(path, paint);
-
-    paint.strokeWidth = element.borderThickness;
-    paint.color = element.borderColor;
-    paint.style = PaintingStyle.stroke;
-    canvas.drawPath(path, paint);
-*/
   }
 
   @override

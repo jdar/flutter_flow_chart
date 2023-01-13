@@ -19,12 +19,12 @@ enum ElementKind {
 
 //room
   kitchen,
-  living_room,
-  laundry_room,
-  office,
+  // living_room,
+  // laundry_room,
+  office_sala,
   other_indoor,
   other_outdoor,
-  closet,
+  // closet,
   bedroom,
   bathroom,
 
