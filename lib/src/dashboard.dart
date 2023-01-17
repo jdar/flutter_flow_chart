@@ -69,6 +69,8 @@ class Dashboard extends ChangeNotifier {
   /// remove all elements
   removeAllElements() {
     elements.clear();
+
+    observeDeeply.notifyListeners();
     notifyListeners();
   }
 
@@ -149,9 +151,6 @@ class Dashboard extends ChangeNotifier {
         element.addListener(() {
           observeDeeply.notifyListeners();
         });
-
-        observeDeeply.notifyListeners();
-        notifyListeners();
       }
       return e.id == element.id;
     });
@@ -160,6 +159,10 @@ class Dashboard extends ChangeNotifier {
     for (FlowElement e in elements) {
       e.next.removeWhere(
           (handlerParams) => handlerParams.destElementId == elementId);
+    }
+    if (found) {
+      observeDeeply.notifyListeners();
+      notifyListeners();
     }
     return found;
   }
