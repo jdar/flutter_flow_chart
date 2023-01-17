@@ -55,6 +55,8 @@ class Dashboard extends ChangeNotifier {
       element.addListener(() {
         observeDeeply.notifyListeners();
       });
+
+      observeDeeply.notifyListeners();
       notifyListeners();
     }
   }
@@ -93,6 +95,8 @@ class Dashboard extends ChangeNotifier {
     element.addListener(() {
       observeDeeply.notifyListeners();
     });
+
+    observeDeeply.notifyListeners();
     notifyListeners();
   }
 
@@ -103,6 +107,8 @@ class Dashboard extends ChangeNotifier {
     element.addListener(() {
       observeDeeply.notifyListeners();
     });
+
+    observeDeeply.notifyListeners();
     notifyListeners();
   }
 
@@ -127,6 +133,7 @@ class Dashboard extends ChangeNotifier {
       });
     }
 
+    observeDeeply.notifyListeners();
     notifyListeners();
   }
 
@@ -142,6 +149,8 @@ class Dashboard extends ChangeNotifier {
         element.addListener(() {
           observeDeeply.notifyListeners();
         });
+
+        observeDeeply.notifyListeners();
         notifyListeners();
       }
       return e.id == element.id;
@@ -191,6 +200,7 @@ class Dashboard extends ChangeNotifier {
       return;
     }
     if (notify) {
+      observeDeeply.notifyListeners();
       notifyListeners();
     }
   }
@@ -245,6 +255,8 @@ class Dashboard extends ChangeNotifier {
       for (int i = 0; i < all.length; i++) {
         addElement(all.elementAt(i));
       }
+
+      observeDeeply.notifyListeners();
       notifyListeners();
     }
   }
