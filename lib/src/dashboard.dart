@@ -51,10 +51,10 @@ class Dashboard extends ChangeNotifier {
       element.id = const Uuid().v4();
     }
     elements.add(element);
-    element.addListener(() {
-      observeDeeply.notifyListeners();
-    });
     if (notify) {
+      element.addListener(() {
+        observeDeeply.notifyListeners();
+      });
       notifyListeners();
     }
   }
