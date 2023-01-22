@@ -23,6 +23,9 @@ import 'package:flutter_flow_chart/src/objects/room_other_outdoor_widget.dart';
 import 'package:flutter_flow_chart/src/objects/appliance_microwave_widget.dart';
 import 'package:flutter_flow_chart/src/objects/appliance_other_widget.dart';
 import 'package:flutter_flow_chart/src/objects/house_widget.dart';
+import 'package:flutter_flow_chart/src/objects/house_condition_widget.dart';
+import 'package:flutter_flow_chart/src/objects/house_electrical_widget.dart';
+import 'package:flutter_flow_chart/src/objects/house_contract_widget.dart';
 
 import '../../flutter_flow_chart.dart';
 import '../objects/parallelogram_widget.dart';
@@ -179,6 +182,16 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.house:
         element = HouseWidget(element: widget.element);
         break;
+      case ElementKind.house_condition:
+        element = HouseConditionWidget(element: widget.element);
+        break;
+      case ElementKind.electrical:
+        element = HouseElectricalWidget(element: widget.element);
+        break;
+      case ElementKind.contract:
+        element = HouseContractWidget(element: widget.element);
+        break;
+
       case ElementKind.rectangle:
 
       default:

@@ -34,6 +34,9 @@ enum ElementKind {
 
 //other
   house,
+  house_condition,
+  electrical,
+  contract,
 }
 
 enum Handler {
