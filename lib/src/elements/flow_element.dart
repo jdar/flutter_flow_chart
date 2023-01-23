@@ -236,7 +236,7 @@ class FlowElement extends ChangeNotifier {
         if (_k.endsWith('_list') ||
             _k.endsWith('_multiselect') ||
             _k.endsWith('_filter')) {
-          out[e.key] = e.value.join(':');
+          out[e.key] = jsonEncode(e.value);
         } else if (_k.endsWith('_date') ||
             _k.endsWith('_at') ||
             _k.endsWith('_time')) {
@@ -282,7 +282,7 @@ class FlowElement extends ChangeNotifier {
       if (_k.endsWith('_list') ||
           _k.endsWith('_multiselect') ||
           _k.endsWith('_filter')) {
-        var vs = (v as String).split(':');
+        var vs = jsonDecode(v as String);
         return vs;
       } else if (_k.endsWith('range_date')) {
         print('range date');
