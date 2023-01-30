@@ -158,7 +158,7 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.survey:
         element = RoomAllWidget(
           element: widget.element,
-          widgetIcon: Icons.assessment,
+          widgetIcon: Icons.assignment,
         );
         break;
       case ElementKind.kitchen:
