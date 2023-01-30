@@ -11,7 +11,6 @@ import 'package:flutter_flow_chart/src/objects/senior_woman_widget.dart';
 import 'package:flutter_flow_chart/src/objects/senior_man_widget.dart';
 import 'package:flutter_flow_chart/src/objects/youth_widget.dart';
 import 'package:flutter_flow_chart/src/objects/kitchen_widget.dart';
-import 'package:flutter_flow_chart/src/objects/bills_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_living_room_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_laundry_room_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_closet_widget.dart';
