@@ -11,6 +11,7 @@ import 'package:flutter_flow_chart/src/objects/senior_woman_widget.dart';
 import 'package:flutter_flow_chart/src/objects/senior_man_widget.dart';
 import 'package:flutter_flow_chart/src/objects/youth_widget.dart';
 import 'package:flutter_flow_chart/src/objects/kitchen_widget.dart';
+import 'package:flutter_flow_chart/src/objects/bills_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_living_room_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_laundry_room_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_closet_widget.dart';
@@ -137,6 +138,30 @@ class _ElementWidgetState extends State<ElementWidget> {
       //   element = RoomClosetWidget(element: widget.element);
       //   break;
       //       kitchen(ElementKind.kitchen, Icons.soup_kitchen_outlined),
+      case ElementKind.bills_electric:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.receipt_long,
+        );
+        break;
+      case ElementKind.bills_water:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.receipt_long,
+        );
+        break;
+      case ElementKind.bills_phone:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.receipt_long,
+        );
+        break;
+      case ElementKind.survey:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.assessment,
+        );
+        break;
       case ElementKind.kitchen:
         element = RoomAllWidget(
           element: widget.element,

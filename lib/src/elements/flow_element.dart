@@ -37,6 +37,12 @@ enum ElementKind {
   house_condition,
   electrical,
   contract,
+//bills
+  bills_electric,
+  bills_phone,
+  bills_water,
+//survey
+  survey,
 }
 
 enum Handler {
