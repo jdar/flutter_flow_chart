@@ -220,6 +220,10 @@ class FlowElement extends ChangeNotifier {
     return defaultValue;
   }
 
+  String get param {
+    return '${kind.name}_${id}';
+  }
+
   @override
   bool operator ==(covariant FlowElement other) {
     if (identical(this, other)) return true;
