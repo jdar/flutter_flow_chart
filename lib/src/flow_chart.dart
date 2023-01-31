@@ -22,6 +22,8 @@ class FlowChart extends StatefulWidget {
   /// callback for element long pressed
   final Function(BuildContext context, Offset position, FlowElement element)?
       onElementLongPressed;
+  final Function(BuildContext context, Offset position, FlowElement element)?
+      onElementDoubleTap;
 
   /// callback for handler pressed
   final Function(
@@ -45,6 +47,7 @@ class FlowChart extends StatefulWidget {
   const FlowChart({
     Key? key,
     this.onElementPressed,
+    this.onElementDoubleTap,
     this.onElementLongPressed,
     this.onDashboardTapped,
     this.onDashboardLongtTapped,

@@ -40,6 +40,7 @@ class ElementWidget extends StatefulWidget {
   final Dashboard dashboard;
   final FlowElement element;
   final Function(BuildContext context, Offset position)? onElementPressed;
+  final Function(BuildContext context, Offset position)? onElementDoubleTap;
   final Function(BuildContext context, Offset position)? onElementLongPressed;
   final Function(Offset position)? onDragUpdate;
   final Function(
@@ -60,6 +61,7 @@ class ElementWidget extends StatefulWidget {
     required this.dashboard,
     required this.element,
     this.onElementPressed,
+    this.onElementDoubleTap,
     this.onElementLongPressed,
     this.onHandlerPressed,
     this.onHandlerLongPressed,
@@ -248,6 +250,11 @@ class _ElementWidgetState extends State<ElementWidget> {
         onTap: () {
           if (widget.onElementPressed != null) {
             widget.onElementPressed!(context, tapLocation);
+          }
+        },
+        onDoubleTap: () {
+          if (widget.onElementDoubleTap != null) {
+            widget.onElementDoubleTap!(context, tapLocation);
           }
         },
         onLongPress: () {

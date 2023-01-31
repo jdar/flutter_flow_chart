@@ -47,7 +47,7 @@ class _Painter extends CustomPainter {
         text: String.fromCharCode(icon.codePoint),
         style: TextStyle(
             color: element.borderColor,
-            fontSize: 80.0,
+            fontSize: 40.0,
             fontFamily: icon.fontFamily));
     textPainter.layout();
     textPainter.paint(canvas, Offset(10.0, 10.0));

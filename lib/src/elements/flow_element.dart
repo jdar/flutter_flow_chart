@@ -110,7 +110,7 @@ class FlowElement extends ChangeNotifier {
     this.size = Size.zero,
     this.text = '',
     this.textColor = Colors.black,
-    this.textSize = 24,
+    this.textSize = 18,
     this.textIsBold = false,
     this.data = const <String, String>{},
     this.kind = ElementKind.rectangle,
@@ -330,10 +330,10 @@ class FlowElement extends ChangeNotifier {
         next.hashCode;
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(Size canvassSize) {
     return <String, dynamic>{
-      'positionDx': position.dx,
-      'positionDy': position.dy,
+      'positionDx': (position.dx / canvassSize.width),
+      'positionDy': (position.dy / canvassSize.height),
       'size.width': size.width,
       'size.height': size.height,
       'text': text,
@@ -353,11 +353,11 @@ class FlowElement extends ChangeNotifier {
     };
   }
 
-  factory FlowElement.fromMap(Map<String, dynamic> map) {
+  factory FlowElement.fromMap(Map<String, dynamic> map, Size canvassSize) {
     FlowElement e = FlowElement(
       position: Offset(
-        map['positionDx'] as double,
-        map['positionDy'] as double,
+        (map['positionDx'] as double) * canvassSize.width,
+        (map['positionDy'] as double) * canvassSize.height,
       ),
       size: Size(map['size.width'] as double, map['size.height'] as double),
       text: map['text'] as String,
@@ -387,8 +387,9 @@ class FlowElement extends ChangeNotifier {
     return e;
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson(Size canvassSize) => json.encode(toMap(canvassSize));
 
-  factory FlowElement.fromJson(String source) =>
-      FlowElement.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory FlowElement.fromJson(String source, Size canvassSize) =>
+      FlowElement.fromMap(
+          json.decode(source) as Map<String, dynamic>, canvassSize);
 }

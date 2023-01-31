@@ -210,41 +210,42 @@ class Dashboard extends ChangeNotifier {
 
   //******************************* */
   /// manage load/save using json
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(Size canvassSize) {
     return <String, dynamic>{
-      'elements': elements.map((x) => x.toMap()).toList(),
+      'elements': elements.map((x) => x.toMap(canvassSize)).toList(),
     };
   }
 
-  factory Dashboard.fromMap(Map<String, dynamic> map) {
+  factory Dashboard.fromMap(Map<String, dynamic> map, Size canvassSize) {
     Dashboard d = Dashboard();
     d.elements = List<FlowElement>.from(
       (map['elements'] as List<dynamic>).map<FlowElement>(
-        (x) => FlowElement.fromMap(x as Map<String, dynamic>),
+        (x) => FlowElement.fromMap((x as Map<String, dynamic>), canvassSize),
       ),
     );
     return d;
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson(Size canvassSize) => json.encode(toMap(canvassSize));
 
-  factory Dashboard.fromJson(String source) =>
-      Dashboard.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Dashboard.fromJson(String source, Size canvassSize) =>
+      Dashboard.fromMap(
+          json.decode(source) as Map<String, dynamic>, canvassSize);
 
-  String prettyJson() {
+  String prettyJson(Size canvassSize) {
     var spaces = ' ' * 2;
     var encoder = JsonEncoder.withIndent(spaces);
-    return encoder.convert(toMap());
+    return encoder.convert(toMap(canvassSize));
   }
 
   /// save the dashboard into [completeFilePath]
-  saveDashboard(String completeFilePath) {
+  saveDashboard(String completeFilePath, Size canvassSize) {
     File f = File(completeFilePath);
-    f.writeAsStringSync(prettyJson(), flush: true);
+    f.writeAsStringSync(prettyJson(canvassSize), flush: true);
   }
 
   /// clear the dashboard and load the new one
-  loadDashboard(String completeFilePath) {
+  loadDashboard(String completeFilePath, Size canvassSize) {
     File f = File(completeFilePath);
     if (f.existsSync()) {
       elements.clear();
@@ -252,7 +253,7 @@ class Dashboard extends ChangeNotifier {
 
       List<FlowElement> all = List<FlowElement>.from(
         ((json.decode(source))['elements'] as List<dynamic>).map<FlowElement>(
-          (x) => FlowElement.fromMap(x as Map<String, dynamic>),
+          (x) => FlowElement.fromMap(x as Map<String, dynamic>, canvassSize),
         ),
       );
       for (int i = 0; i < all.length; i++) {

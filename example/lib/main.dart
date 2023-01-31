@@ -297,14 +297,16 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () async {
                 Directory appDocDir =
                     await path.getApplicationDocumentsDirectory();
-                dashboard.saveDashboard('${appDocDir.path}/FLOWCHART.json');
+                dashboard.saveDashboard('${appDocDir.path}/FLOWCHART.json',
+                    MediaQuery.of(context).size);
               }),
           ActionChip(
               label: const Text('LOAD dashboard'),
               onPressed: () async {
                 Directory appDocDir =
                     await path.getApplicationDocumentsDirectory();
-                dashboard.loadDashboard('${appDocDir.path}/FLOWCHART.json');
+                dashboard.loadDashboard('${appDocDir.path}/FLOWCHART.json',
+                    MediaQuery.of(context).size);
               }),
         ],
       ),
