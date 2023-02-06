@@ -17,6 +17,8 @@ enum ElementKind {
   youth,
   parallelogram,
 
+  notes,
+
 //room
   kitchen,
   // living_room,
@@ -36,6 +38,7 @@ enum ElementKind {
   house,
   house_condition,
   electrical,
+  solicitation,
   contract,
 //bills
   bills_electric,
