@@ -46,6 +46,9 @@ enum ElementKind {
   bills_water,
 //survey
   survey,
+  //
+  required_photos,
+  optional_photos,
 }
 
 enum Handler {
