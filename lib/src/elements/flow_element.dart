@@ -349,6 +349,7 @@ class FlowElement extends ChangeNotifier {
       'jsonData': tryJsonEncode(data),
       'id': id,
       'kind': kind.index,
+      'kind_name': kind.name, // for friendly debugging // programming
       'handlers': handlers.map((x) => x.index).toList(),
       'handlerSize': handlerSize,
       'backgroundColor': backgroundColor.value,
