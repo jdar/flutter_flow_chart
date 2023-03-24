@@ -13,19 +13,27 @@ import 'ui/grid_background.dart';
 /// Class to store all the scene elements.
 /// It notifies changes to [FlowChart]
 class Dashboard extends ChangeNotifier {
-  List<FlowElement> elements;
-  Offset dashboardPosition;
-  Size dashboardSize;
-  Offset handlerFeedbackOffset;
-  GridBackgroundParams gridBackgroundParams;
-  ChangeNotifier observeDeeply = ChangeNotifier();
+  late List<FlowElement> elements;
+  late Offset dashboardPosition;
+  late Size dashboardSize;
+  late Offset handlerFeedbackOffset;
+  late GridBackgroundParams gridBackgroundParams;
+  late DateTime modifiedAt;
+  late String projectJson;
+  late ChangeNotifier observeDeeply = ChangeNotifier();
 
-  Dashboard()
-      : elements = [],
-        dashboardPosition = Offset.zero,
-        dashboardSize = const Size(0, 0),
-        handlerFeedbackOffset = const Offset(-40, -40),
-        gridBackgroundParams = const GridBackgroundParams();
+  Dashboard() {
+    elements = [];
+    modifiedAt = DateTime.now();
+    projectJson = "{}";
+    dashboardPosition = Offset.zero;
+    dashboardSize = const Size(0, 0);
+    handlerFeedbackOffset = const Offset(-40, -40);
+    gridBackgroundParams = const GridBackgroundParams();
+    observeDeeply.addListener(() {
+      modifiedAt = DateTime.now();
+    });
+  }
 
   /// set grid background parameters
   setGridBackgroundParams(GridBackgroundParams params) {
@@ -213,6 +221,7 @@ class Dashboard extends ChangeNotifier {
   Map<String, dynamic> toMap(Size canvassSize) {
     return <String, dynamic>{
       'elements': elements.map((x) => x.toMap(canvassSize)).toList(),
+      'projectJson': projectJson,
     };
   }
 
@@ -223,6 +232,11 @@ class Dashboard extends ChangeNotifier {
         (x) => FlowElement.fromMap((x as Map<String, dynamic>), canvassSize),
       ),
     );
+    d.modifiedAt = map['modifiedAt'] == null
+        ? DateTime.now()
+        : DateTime.parse(map['modifiedAt']);
+    //projectJson: keep track of other random json, but it's not for the library, so don't deserialize or otherwise handle logic.
+    d.projectJson = map['projectJson'] == null ? '{}' : map['projectJson'];
     return d;
   }
 
@@ -232,16 +246,25 @@ class Dashboard extends ChangeNotifier {
       Dashboard.fromMap(
           json.decode(source) as Map<String, dynamic>, canvassSize);
 
-  String prettyJson(Size canvassSize) {
+  String prettyJson(
+      Size canvassSize, Map<String, dynamic> domainOptionalParameters) {
     var spaces = ' ' * 2;
     var encoder = JsonEncoder.withIndent(spaces);
-    return encoder.convert(toMap(canvassSize));
+    var _map = toMap(canvassSize)..addEntries(domainOptionalParameters.entries);
+    return encoder.convert(_map);
   }
 
   /// save the dashboard into [completeFilePath]
   saveDashboard(String completeFilePath, Size canvassSize) {
     File f = File(completeFilePath);
-    f.writeAsStringSync(prettyJson(canvassSize), flush: true);
+    f.writeAsStringSync(prettyJson(canvassSize, {}), flush: true);
+  }
+
+  saveDashboardWithDomainOptionalParameters(String completeFilePath,
+      Size canvassSize, Map<String, dynamic> domainOptionalParameters) {
+    File f = File(completeFilePath);
+    f.writeAsStringSync(prettyJson(canvassSize, domainOptionalParameters),
+        flush: true);
   }
 
   /// clear the dashboard and load the new one

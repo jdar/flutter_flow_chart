@@ -4,10 +4,10 @@ import '../elements/flow_element.dart';
 import 'element_text_widget.dart';
 
 /// A kind of element
-class HouseContractWidget extends StatelessWidget {
+class HouseSolicitationWidget extends StatelessWidget {
   final FlowElement element;
 
-  const HouseContractWidget({
+  const HouseSolicitationWidget({
     Key? key,
     required this.element,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class HouseContractWidget extends StatelessWidget {
         children: [
           CustomPaint(
             size: element.size,
-            painter: _HouseContractPainter(
+            painter: _HouseSolicitationPainter(
               element: element,
             ),
           ),
@@ -32,10 +32,10 @@ class HouseContractWidget extends StatelessWidget {
   }
 }
 
-class _HouseContractPainter extends CustomPainter {
+class _HouseSolicitationPainter extends CustomPainter {
   final FlowElement element;
 
-  _HouseContractPainter({
+  _HouseSolicitationPainter({
     required this.element,
   });
 
