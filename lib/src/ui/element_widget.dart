@@ -28,7 +28,10 @@ import 'package:flutter_flow_chart/src/objects/house_electrical_widget.dart';
 import 'package:flutter_flow_chart/src/objects/house_contract_widget.dart';
 
 import '../../flutter_flow_chart.dart';
+import '../objects/house_solicitation_widget.dart';
+import '../objects/optional_photos_widget.dart';
 import '../objects/parallelogram_widget.dart';
+import '../objects/required_photos_widget.dart';
 import 'element_handlers.dart';
 import '../objects/diamond_widget.dart';
 import '../objects/rectangle_widget.dart';
@@ -216,6 +219,15 @@ class _ElementWidgetState extends State<ElementWidget> {
         break;
       case ElementKind.contract:
         element = HouseContractWidget(element: widget.element);
+        break;
+      case ElementKind.solicitation:
+        element = HouseSolicitationWidget(element: widget.element);
+        break;
+      case ElementKind.required_photos:
+        element = RequiredPhotosWidget(element: widget.element);
+        break;
+      case ElementKind.optional_photos:
+        element = OptionalPhotosWidget(element: widget.element);
         break;
 
       case ElementKind.rectangle:
