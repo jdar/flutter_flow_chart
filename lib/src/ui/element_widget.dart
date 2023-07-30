@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flow_chart/src/objects/notes_widget.dart';
 import 'package:flutter_flow_chart/src/objects/oval_widget.dart';
 
 //person
@@ -20,6 +21,7 @@ import 'package:flutter_flow_chart/src/objects/room_office_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_other_indoor_widget.dart';
 import 'package:flutter_flow_chart/src/objects/room_other_outdoor_widget.dart';
 
+import 'package:flutter_flow_chart/src/objects/appliance_inventory_widget.dart';
 import 'package:flutter_flow_chart/src/objects/appliance_microwave_widget.dart';
 import 'package:flutter_flow_chart/src/objects/appliance_other_widget.dart';
 import 'package:flutter_flow_chart/src/objects/house_widget.dart';
@@ -142,6 +144,16 @@ class _ElementWidgetState extends State<ElementWidget> {
       //   element = RoomClosetWidget(element: widget.element);
       //   break;
       //       kitchen(ElementKind.kitchen, Icons.soup_kitchen_outlined),
+      case ElementKind.rectangle:
+        element = NotesWidget(
+          element: widget.element,
+        );
+        break;
+      case ElementKind.appliance_inventory:
+        element = ApplianceInventoryWidget(
+          element: widget.element,
+        );
+        break;
       case ElementKind.bills_electric:
         element = RoomAllWidget(
           element: widget.element,
@@ -229,8 +241,6 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.optional_photos:
         element = OptionalPhotosWidget(element: widget.element);
         break;
-
-      case ElementKind.rectangle:
 
       default:
         element = RectangleWidget(element: widget.element);

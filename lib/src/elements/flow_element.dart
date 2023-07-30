@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'connection_params.dart';
 
 enum ElementKind {
-  rectangle,
   diamond,
+  rectangle,
   storage,
   oval,
   person,
@@ -30,6 +30,7 @@ enum ElementKind {
   bedroom,
   bathroom,
 
+  appliance_inventory,
 //appliances
   microwave,
   appliance_other,
@@ -87,6 +88,8 @@ class FlowElement extends ChangeNotifier {
   /// Element shape
   ElementKind kind;
 
+  FlowElementStatus status;
+
   /// Connection handlers
   List<Handler> handlers;
 
@@ -119,6 +122,7 @@ class FlowElement extends ChangeNotifier {
     this.textSize = 18,
     this.textIsBold = false,
     this.data = const <String, String>{},
+    this.status = FlowElementStatus.initial,
     this.kind = ElementKind.rectangle,
     this.handlers = const [
       Handler.topCenter,
@@ -178,10 +182,13 @@ class FlowElement extends ChangeNotifier {
   }
 
   /// Set data
-  setData(Map<String, dynamic> data) {
+  setData(Map<String, dynamic> data, {FlowElementStatus? status}) {
+    if (status != null) this.status = status;
     this.data = data;
     notifyListeners();
   }
+
+  bool get isDefault => this.status == FlowElementStatus.initial;
 
   /// Set background color
   setBackgroundColor(Color color) {
@@ -350,6 +357,7 @@ class FlowElement extends ChangeNotifier {
       'id': id,
       'kind': kind.index,
       'kind_name': kind.name, // for friendly debugging // programming
+      'status': status.name,
       'handlers': handlers.map((x) => x.index).toList(),
       'handlerSize': handlerSize,
       'backgroundColor': backgroundColor.value,
@@ -374,6 +382,9 @@ class FlowElement extends ChangeNotifier {
       //data: FlowElement.tryJsonDecode(map['jsonData'] as String),
       data: FlowElement.tryJsonDecode(map['jsonData']),
       kind: ElementKind.values[map['kind'] as int],
+      status: (map['status'] as String?) == 'initial'
+          ? FlowElementStatus.initial
+          : FlowElementStatus.changed, // 'changed' is the conservative
       handlers: List<Handler>.from(
         (map['handlers'] as List<dynamic>).map<Handler>(
           (x) => Handler.values[x],
@@ -399,4 +410,9 @@ class FlowElement extends ChangeNotifier {
   factory FlowElement.fromJson(String source, Size canvassSize) =>
       FlowElement.fromMap(
           json.decode(source) as Map<String, dynamic>, canvassSize);
+}
+
+enum FlowElementStatus {
+  initial,
+  changed;
 }
