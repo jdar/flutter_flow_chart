@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'connection_params.dart';
 
 enum ElementKind {
-  diamond,
   rectangle,
+  diamond,
   storage,
   oval,
   person,
