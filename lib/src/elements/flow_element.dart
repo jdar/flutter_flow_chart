@@ -50,6 +50,9 @@ enum ElementKind {
   //
   required_photos,
   optional_photos,
+
+  home_inspection,
+  electrical_inspection,
 }
 
 enum Handler {
