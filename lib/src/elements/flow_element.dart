@@ -54,6 +54,7 @@ enum ElementKind {
   home_inspection,
   electrical_inspection,
   installation_audit,
+  installation_checklist,
 }
 
 enum Handler {

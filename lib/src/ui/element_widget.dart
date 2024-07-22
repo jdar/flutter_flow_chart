@@ -31,6 +31,8 @@ import 'package:flutter_flow_chart/src/objects/house_contract_widget.dart';
 
 import 'package:flutter_flow_chart/src/objects/home_inspection_widget.dart';
 import 'package:flutter_flow_chart/src/objects/electrical_inspection_widget.dart';
+import 'package:flutter_flow_chart/src/objects/installation_audit_widget.dart';
+import 'package:flutter_flow_chart/src/objects/installation_checklist_widget.dart';
 
 import '../../flutter_flow_chart.dart';
 import '../objects/house_solicitation_widget.dart';
@@ -250,6 +252,12 @@ class _ElementWidgetState extends State<ElementWidget> {
         break;
       case ElementKind.home_inspection:
         element = HomeInspectionWidget(element: widget.element);
+        break;
+      case ElementKind.installation_audit:
+        element = InstallationAuditWidget(element: widget.element);
+        break;
+      case ElementKind.installation_checklist:
+        element = InstallationChecklistWidget(element: widget.element);
         break;
 
       default:
