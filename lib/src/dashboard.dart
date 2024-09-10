@@ -279,8 +279,14 @@ class Dashboard extends ChangeNotifier {
           (x) => FlowElement.fromMap(x as Map<String, dynamic>, canvassSize),
         ),
       );
+      var alreadyAddedBackgroundElement = false;
       for (int i = 0; i < all.length; i++) {
-        addElement(all.elementAt(i));
+        var el = all.elementAt(i);
+        if (el.kind == ElementKind.house && alreadyAddedBackgroundElement) {
+          //don't double up. Fix previous logic error in the wild.
+        } else {
+          addElement(el);
+        }
       }
 
       observeDeeply.notifyListeners();
