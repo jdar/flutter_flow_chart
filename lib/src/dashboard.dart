@@ -282,8 +282,13 @@ class Dashboard extends ChangeNotifier {
       var alreadyAddedBackgroundElement = false;
       for (int i = 0; i < all.length; i++) {
         var el = all.elementAt(i);
-        if (el.kind == ElementKind.house && alreadyAddedBackgroundElement) {
-          //don't double up. Fix previous logic error in the wild.
+        if (el.kind == ElementKind.house) {
+          if (alreadyAddedBackgroundElement) {
+            //don't double up. Fix previous logic error in the wild.
+          } else {
+            addElement(el);
+            alreadyAddedBackgroundElement = true;
+          }
         } else {
           addElement(el);
         }
