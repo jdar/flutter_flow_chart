@@ -95,6 +95,8 @@ class FlowElement extends ChangeNotifier {
 
   FlowElementStatus status;
 
+  String? paramPrefix;
+
   /// Connection handlers
   List<Handler> handlers;
 
@@ -129,6 +131,7 @@ class FlowElement extends ChangeNotifier {
     this.data = const <String, String>{},
     this.status = FlowElementStatus.initial,
     this.kind = ElementKind.rectangle,
+    this.paramPrefix,
     this.handlers = const [
       Handler.topCenter,
       Handler.bottomCenter,
@@ -233,6 +236,12 @@ class FlowElement extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Change paramPrefix
+  changeParamPrefix(String? newParamPrefix) {
+    paramPrefix = newParamPrefix;
+    notifyListeners();
+  }
+
   bool hasOther(String dataKey) {
     return data.containsKey(dataKey) && data[dataKey].contains('other');
   }
@@ -245,7 +254,7 @@ class FlowElement extends ChangeNotifier {
   }
 
   String get param {
-    return '${kind.name}_${id}';
+    return '${paramPrefix ?? ''}${kind.name}_${id}';
   }
 
   @override
@@ -339,6 +348,7 @@ class FlowElement extends ChangeNotifier {
         tryJsonEncode(data).hashCode ^ //TODO: benchmark
         id.hashCode ^
         kind.hashCode ^
+        //paramPrefix.toString().hashCode ^
         handlers.hashCode ^
         handlerSize.hashCode ^
         backgroundColor.hashCode ^
@@ -363,6 +373,7 @@ class FlowElement extends ChangeNotifier {
       'kind': kind.index,
       'kind_name': kind.name, // for friendly debugging // programming
       'status': status.name,
+      'paramPrefix': paramPrefix,
       'handlers': handlers.map((x) => x.index).toList(),
       'handlerSize': handlerSize,
       'backgroundColor': backgroundColor.value,
@@ -390,6 +401,7 @@ class FlowElement extends ChangeNotifier {
       status: (map['status'] as String?) == 'initial'
           ? FlowElementStatus.initial
           : FlowElementStatus.changed, // 'changed' is the conservative
+      paramPrefix: map['paramPrefix'] as String?,
       handlers: List<Handler>.from(
         (map['handlers'] as List<dynamic>).map<Handler>(
           (x) => Handler.values[x],
