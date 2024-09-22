@@ -96,6 +96,7 @@ class FlowElement extends ChangeNotifier {
   FlowElementStatus status;
 
   String? paramPrefix;
+  DateTime? modifiedAt;
 
   /// Connection handlers
   List<Handler> handlers;
@@ -132,6 +133,7 @@ class FlowElement extends ChangeNotifier {
     this.status = FlowElementStatus.initial,
     this.kind = ElementKind.rectangle,
     this.paramPrefix,
+    this.modifiedAt,
     this.handlers = const [
       Handler.topCenter,
       Handler.bottomCenter,
@@ -239,6 +241,16 @@ class FlowElement extends ChangeNotifier {
   /// Change paramPrefix
   changeParamPrefix(String? newParamPrefix) {
     paramPrefix = newParamPrefix;
+    notifyListeners();
+  }
+
+  setModifiedAt() {
+    //print('please use touch instead')
+    touch();
+  }
+
+  touch() {
+    modifiedAt = DateTime.now().toUtc();
     notifyListeners();
   }
 
@@ -374,6 +386,7 @@ class FlowElement extends ChangeNotifier {
       'kind_name': kind.name, // for friendly debugging // programming
       'status': status.name,
       'paramPrefix': paramPrefix,
+      'modifiedAt': modifiedAt!.toIso8601String(),
       'handlers': handlers.map((x) => x.index).toList(),
       'handlerSize': handlerSize,
       'backgroundColor': backgroundColor.value,
@@ -402,6 +415,9 @@ class FlowElement extends ChangeNotifier {
           ? FlowElementStatus.initial
           : FlowElementStatus.changed, // 'changed' is the conservative
       paramPrefix: map['paramPrefix'] as String?,
+      modifiedAt: map['modifiedAt'] == null
+          ? DateTime.now().toUtc().subtract(Duration(days: 14))
+          : DateTime.parse(map['modifiedAt']).toUtc(),
       handlers: List<Handler>.from(
         (map['handlers'] as List<dynamic>).map<Handler>(
           (x) => Handler.values[x],
