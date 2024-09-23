@@ -386,7 +386,7 @@ class FlowElement extends ChangeNotifier {
       'kind_name': kind.name, // for friendly debugging // programming
       'status': status.name,
       'paramPrefix': paramPrefix,
-      'modifiedAt': modifiedAt!.toIso8601String(),
+      'modifiedAt': (modifiedAt ?? DateTime.now().toUtc()).toIso8601String(),
       'handlers': handlers.map((x) => x.index).toList(),
       'handlerSize': handlerSize,
       'backgroundColor': backgroundColor.value,
