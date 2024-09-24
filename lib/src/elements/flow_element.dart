@@ -308,45 +308,50 @@ class FlowElement extends ChangeNotifier {
   }
 
   static Map<String, dynamic> tryJsonDecode(dynamic obj) {
-    String jsonData = '';
     try {
-      jsonData = obj as String;
-    } catch (_) {
-      print('not a string');
-      return <String, dynamic>{};
-    }
-
-    print('is string');
-
-    return jsonDecode(jsonData, reviver: (k, v) {
-      if (k is List) {
-        return <String>[];
+      String jsonData = '';
+      try {
+        jsonData = obj as String;
+      } catch (_) {
+        print('not a string');
+        return <String, dynamic>{};
       }
-      if (k == null) {
-        //why is reviver being run on the fully-decoded list? Must be recursive.
+
+      print('is string');
+
+      return jsonDecode(jsonData, reviver: (k, v) {
+        if (k is List) {
+          return <String>[];
+        }
+        if (k == null) {
+          //why is reviver being run on the fully-decoded list? Must be recursive.
+          return v;
+        }
+        if (k is int) return v;
+        var _k = k as String;
+        if (_k.endsWith('_list') ||
+            _k.endsWith('_multiselect') ||
+            _k.endsWith('_filter')) {
+          var vs = jsonDecode(v as String);
+          return vs;
+        } else if (_k.endsWith('range_date')) {
+          print('range date');
+          return DateTime.tryParse(v as String);
+        } else if (_k.endsWith('_date') ||
+            _k.endsWith('_at') ||
+            _k.endsWith('_time')) {
+          print('range date');
+          return DateTime.tryParse(v as String);
+        } else if (_k.endsWith('_range')) {
+          var vs = (v as String).split(':');
+          return RangeValues(double.parse(vs[0]), double.parse(vs[1]));
+        }
         return v;
-      }
-      if (k is int) return v;
-      var _k = k as String;
-      if (_k.endsWith('_list') ||
-          _k.endsWith('_multiselect') ||
-          _k.endsWith('_filter')) {
-        var vs = jsonDecode(v as String);
-        return vs;
-      } else if (_k.endsWith('range_date')) {
-        print('range date');
-        return DateTime.tryParse(v as String);
-      } else if (_k.endsWith('_date') ||
-          _k.endsWith('_at') ||
-          _k.endsWith('_time')) {
-        print('range date');
-        return DateTime.tryParse(v as String);
-      } else if (_k.endsWith('_range')) {
-        var vs = (v as String).split(':');
-        return RangeValues(double.parse(vs[0]), double.parse(vs[1]));
-      }
-      return v;
-    });
+      });
+    } catch (e) {}
+    //if json is invalid, just keep the jsonData; might be encrypted data.
+    //return null;
+    return {};
   }
 
   @override
@@ -410,6 +415,7 @@ class FlowElement extends ChangeNotifier {
       textIsBold: map['textIsBold'] as bool,
       //data: FlowElement.tryJsonDecode(map['jsonData'] as String),
       data: FlowElement.tryJsonDecode(map['jsonData']),
+      //initialJsonData: map['jsonData'],
       kind: ElementKind.values[map['kind'] as int],
       status: (map['status'] as String?) == 'initial'
           ? FlowElementStatus.initial
