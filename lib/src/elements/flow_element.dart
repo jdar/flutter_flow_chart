@@ -307,7 +307,7 @@ class FlowElement extends ChangeNotifier {
     return jsonEncode(out);
   }
 
-  static Map<String, dynamic> tryJsonDecode(dynamic obj) {
+  static dynamic tryJsonDecode(dynamic obj) {
     try {
       String jsonData = '';
       try {
@@ -351,7 +351,7 @@ class FlowElement extends ChangeNotifier {
     } catch (e) {}
     //if json is invalid, just keep the jsonData; might be encrypted data.
     //return null;
-    return {};
+    return obj;
   }
 
   @override
@@ -413,7 +413,6 @@ class FlowElement extends ChangeNotifier {
       textColor: Color(map['textColor'] as int),
       textSize: map['textSize'] as double,
       textIsBold: map['textIsBold'] as bool,
-      //data: FlowElement.tryJsonDecode(map['jsonData'] as String),
       data: FlowElement.tryJsonDecode(map['jsonData']),
       //initialJsonData: map['jsonData'],
       kind: ElementKind.values[map['kind'] as int],
