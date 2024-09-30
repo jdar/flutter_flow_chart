@@ -308,51 +308,64 @@ class FlowElement extends ChangeNotifier {
     return jsonEncode(out);
   }
 
-  static dynamic tryJsonDecode(dynamic obj) {
+  static Map<String, dynamic> tryJsonDecode(dynamic obj) {
+    //try {
+    String jsonData = '';
     try {
-      String jsonData = '';
-      try {
-        jsonData = obj as String;
-      } catch (_) {
-        print('not a string');
-        return <String, dynamic>{};
-      }
+      jsonData = obj as String;
+    } catch (_) {
+      print('not a string');
+      return <String, dynamic>{};
+    }
 
-      print('is string');
+    print('is string');
 
-      return jsonDecode(jsonData, reviver: (k, v) {
-        if (k is List) {
-          return <String>[];
-        }
-        if (k == null) {
-          //why is reviver being run on the fully-decoded list? Must be recursive.
-          return v;
-        }
-        if (k is int) return v;
-        var _k = k as String;
-        if (_k.endsWith('_list') ||
-            _k.endsWith('_multiselect') ||
-            _k.endsWith('_filter')) {
-          var vs = jsonDecode(v as String);
-          return vs;
-        } else if (_k.endsWith('range_date')) {
-          print('range date');
-          return DateTime.tryParse(v as String);
-        } else if (_k.endsWith('_date') ||
-            _k.endsWith('_at') ||
-            _k.endsWith('_time')) {
-          print('range date');
-          return DateTime.tryParse(v as String);
-        } else if (_k.endsWith('_range')) {
-          var vs = (v as String).split(':');
-          return RangeValues(double.parse(vs[0]), double.parse(vs[1]));
-        }
-        return v;
-      });
-    } catch (e) {}
-    //if json is invalid, just keep the jsonData; might be encrypted data.
-    //return null;
-    return obj;
+    var _obj = jsonDecode(jsonData, reviver: _BE_reviver);
+    _obj['decrypted'] = true;
+    return _obj;
+    /*} catch (e, stack) {
+      print('didn\'t decrypt');
+      return {'decrypted': false};
+    }
+    */
+  }
+
+  static Object? _BE_reviver(Object? k, Object? v) {
+    print('gh1, ${k}:${v}');
+    if (k is List) {
+      return <String>[];
+    }
+    print('gh2');
+    if (k == null) {
+      //why is reviver being run on the fully-decoded list? Must be recursive.
+      return v;
+    }
+    print('gh3');
+    if (k is int) return v;
+    var _k = k as String;
+    print('gh4');
+    if (_k.endsWith('_list') ||
+        _k.endsWith('_multiselect') ||
+        _k.endsWith('_filter')) {
+      var vs = jsonDecode(v as String);
+      print('type gh4');
+      return vs;
+    } else if (_k.endsWith('range_date')) {
+      print('range date');
+      print('type gh4.2');
+      return DateTime.tryParse(v as String);
+    } else if (_k.endsWith('_date') ||
+        _k.endsWith('_at') ||
+        _k.endsWith('_time')) {
+      print('type gh4.3');
+      return DateTime.tryParse(v as String);
+    } else if (_k.endsWith('_range')) {
+      var vs = (v as String).split(':');
+      print('type gh4.3');
+      return RangeValues(double.parse(vs[0]), double.parse(vs[1]));
+    }
+    print('type gh5.3');
+    return v;
   }
 
   @override
@@ -414,8 +427,7 @@ class FlowElement extends ChangeNotifier {
       textColor: Color(map['textColor'] as int),
       textSize: map['textSize'] as double,
       textIsBold: map['textIsBold'] as bool,
-      data: FlowElement.tryJsonDecode(map['jsonData']),
-      //initialJsonData: map['jsonData'],
+      data: FlowElement.tryJsonDecode(map['jsonData'] as String),
       kind: ElementKind.values[map['kind'] as int],
       status: (map['status'] as String?) == 'initial'
           ? FlowElementStatus.initial
