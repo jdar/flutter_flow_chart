@@ -260,6 +260,10 @@ class _ElementWidgetState extends State<ElementWidget> {
         element = InstallationChecklistWidget(element: widget.element);
         break;
 
+      case ElementKind.economic_profile:
+        element = InstallationChecklistWidget(element: widget.element);
+        break;
+
       default:
         element = RectangleWidget(element: widget.element);
     }
