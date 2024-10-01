@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flow_chart/src/objects/economic_profile.dart';
 import 'package:flutter_flow_chart/src/objects/notes_widget.dart';
 import 'package:flutter_flow_chart/src/objects/oval_widget.dart';
 
@@ -261,7 +262,7 @@ class _ElementWidgetState extends State<ElementWidget> {
         break;
 
       case ElementKind.economic_profile:
-        element = InstallationChecklistWidget(element: widget.element);
+        element = EconomicProfileWidget(element: widget.element);
         break;
 
       default:
