@@ -309,62 +309,43 @@ class FlowElement extends ChangeNotifier {
   }
 
   static Map<String, dynamic> tryJsonDecode(dynamic obj) {
-    //try {
     String jsonData = '';
     try {
       jsonData = obj as String;
     } catch (_) {
-      print('not a string');
       return <String, dynamic>{};
     }
-
-    print('is string');
 
     var _obj = jsonDecode(jsonData, reviver: _BE_reviver);
     _obj['decrypted'] = true;
     return _obj;
-    /*} catch (e, stack) {
-      print('didn\'t decrypt');
-      return {'decrypted': false};
-    }
-    */
   }
 
   static Object? _BE_reviver(Object? k, Object? v) {
-    print('gh1, ${k}:${v}');
     if (k is List) {
       return <String>[];
     }
-    print('gh2');
     if (k == null) {
       //why is reviver being run on the fully-decoded list? Must be recursive.
       return v;
     }
-    print('gh3');
     if (k is int) return v;
     var _k = k as String;
-    print('gh4');
     if (_k.endsWith('_list') ||
         _k.endsWith('_multiselect') ||
         _k.endsWith('_filter')) {
       var vs = jsonDecode(v as String);
-      print('type gh4');
       return vs;
     } else if (_k.endsWith('range_date')) {
-      print('range date');
-      print('type gh4.2');
       return DateTime.tryParse(v as String);
     } else if (_k.endsWith('_date') ||
         _k.endsWith('_at') ||
         _k.endsWith('_time')) {
-      print('type gh4.3');
       return DateTime.tryParse(v as String);
     } else if (_k.endsWith('_range')) {
       var vs = (v as String).split(':');
-      print('type gh4.3');
       return RangeValues(double.parse(vs[0]), double.parse(vs[1]));
     }
-    print('type gh5.3');
     return v;
   }
 
