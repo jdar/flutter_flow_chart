@@ -46,7 +46,7 @@ enum ElementKind {
   bills_phone,
   bills_water,
 //survey
-  questionnaire,
+  survey,
   //
   required_photos,
   optional_photos,
@@ -416,9 +416,7 @@ class FlowElement extends ChangeNotifier {
       paramPrefix: map['paramPrefix'] as String?,
       modifiedAt: map['modifiedAt'] == null
           ? DateTime.now().toUtc().subtract(Duration(days: 14))
-          : (map['modifiedAt'] is DateTime
-              ? map['modifiedAt']
-              : DateTime.parse(map['modifiedAt']).toUtc()),
+          : DateTime.parse(map['modifiedAt']).toUtc(),
       handlers: List<Handler>.from(
         (map['handlers'] as List<dynamic>).map<Handler>(
           (x) => Handler.values[x],

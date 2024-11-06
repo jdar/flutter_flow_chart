@@ -4,10 +4,10 @@ import '../elements/flow_element.dart';
 import 'element_text_widget.dart';
 
 /// A kind of element
-class QuestionnaireWidget extends StatelessWidget {
+class QuestionaireWidget extends StatelessWidget {
   final FlowElement element;
 
-  const QuestionnaireWidget({
+  const QuestionaireWidget({
     Key? key,
     required this.element,
   }) : super(key: key);
