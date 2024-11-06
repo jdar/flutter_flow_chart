@@ -178,7 +178,7 @@ class _ElementWidgetState extends State<ElementWidget> {
           widgetIcon: Icons.receipt_long,
         );
         break;
-      case ElementKind.survey:
+      case ElementKind.questionnaire:
         element = RoomAllWidget(
           element: widget.element,
           widgetIcon: Icons.assignment,
