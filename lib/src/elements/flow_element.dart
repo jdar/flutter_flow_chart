@@ -47,6 +47,7 @@ enum ElementKind {
   bills_water,
 //survey
   questionnaire,
+  affirmation,
   //
   required_photos,
   optional_photos,
@@ -269,6 +270,9 @@ class FlowElement extends ChangeNotifier {
   String get param {
     return '${paramPrefix ?? ''}${kind.name}_${id}';
   }
+
+  String get shortId => data['shortId'] ?? id.substring(0, 4);
+  set shortId(String str) => data['shortId'] = str;
 
   @override
   bool operator ==(covariant FlowElement other) {

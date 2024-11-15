@@ -21,7 +21,7 @@ class QuestionnaireWidget extends StatelessWidget {
         children: [
           CustomPaint(
             size: element.size,
-            painter: _QuestionairePainter(
+            painter: _QuestionnairePainter(
               element: element,
             ),
           ),
@@ -32,10 +32,10 @@ class QuestionnaireWidget extends StatelessWidget {
   }
 }
 
-class _QuestionairePainter extends CustomPainter {
+class _QuestionnairePainter extends CustomPainter {
   final FlowElement element;
 
-  _QuestionairePainter({
+  _QuestionnairePainter({
     required this.element,
   });
 

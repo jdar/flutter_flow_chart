@@ -184,6 +184,12 @@ class _ElementWidgetState extends State<ElementWidget> {
           widgetIcon: Icons.assignment,
         );
         break;
+      case ElementKind.affirmation:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.speaker_notes_sharp,
+        );
+        break;
       case ElementKind.kitchen:
         element = RoomAllWidget(
           element: widget.element,
