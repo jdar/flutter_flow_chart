@@ -402,6 +402,9 @@ class FlowElement extends ChangeNotifier {
   }
 
   factory FlowElement.fromMap(Map<String, dynamic> map, Size canvassSize) {
+    ElementKind? kind = ElementKind.values
+        .firstWhere((val) => val.name == map['kind_name'], orElse: null);
+    kind ??= ElementKind.notes;
     FlowElement e = FlowElement(
       position: Offset(
         (map['positionDx'] as double) * canvassSize.width,
@@ -413,7 +416,7 @@ class FlowElement extends ChangeNotifier {
       textSize: map['textSize'] as double,
       textIsBold: map['textIsBold'] as bool,
       data: FlowElement.tryJsonDecode(map['jsonData'] as String),
-      kind: ElementKind.values[map['kind'] as int],
+      kind: kind,
       status: (map['status'] as String?) == 'initial'
           ? FlowElementStatus.initial
           : FlowElementStatus.changed, // 'changed' is the conservative
