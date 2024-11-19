@@ -405,6 +405,14 @@ class FlowElement extends ChangeNotifier {
     ElementKind? kind = ElementKind.values
         .firstWhere((val) => val.name == map['kind_name'], orElse: null);
     kind ??= ElementKind.notes;
+/*
+    print(kind.name);
+    if (map['kind_name'].contains('profile')) {
+      print('got here');
+      throw ('failed to get right kind');
+    }
+*/
+
     FlowElement e = FlowElement(
       position: Offset(
         (map['positionDx'] as double) * canvassSize.width,
