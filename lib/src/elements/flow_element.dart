@@ -182,22 +182,23 @@ class FlowElement extends ChangeNotifier {
   }
 
   /// Set text size
-  setTextSize(double size) {
+  setTextSize(double size, {bool notify = false}) {
     textSize = size;
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
   /// Set text bold
-  setTextIsBold(bool isBold) {
+  setTextIsBold(bool isBold, {bool notify = false}) {
     textIsBold = isBold;
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
   /// Set data
-  setData(Map<String, dynamic> data, {FlowElementStatus? status}) {
+  setData(Map<String, dynamic> data,
+      {FlowElementStatus? status, bool notify = false}) {
     if (status != null) this.status = status;
     this.data = data;
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
   bool get isDefault => this.status == FlowElementStatus.initial;
