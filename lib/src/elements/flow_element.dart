@@ -48,6 +48,8 @@ enum ElementKind {
 //survey
   questionnaire,
   affirmation,
+  signature_1,
+  signature_2,
   //
   required_photos,
   optional_photos,
