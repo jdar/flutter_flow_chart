@@ -190,6 +190,12 @@ class _ElementWidgetState extends State<ElementWidget> {
           widgetIcon: Icons.speaker_notes_sharp,
         );
         break;
+      case ElementKind.education_be:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.cast_for_education_rounded,
+        );
+        break;
       case ElementKind.signature_1:
         element = RoomAllWidget(
           element: widget.element,

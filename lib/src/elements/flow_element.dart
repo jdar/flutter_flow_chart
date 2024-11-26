@@ -48,6 +48,7 @@ enum ElementKind {
 //survey
   questionnaire,
   affirmation,
+  education_be,
   signature_1,
   signature_2,
   //
