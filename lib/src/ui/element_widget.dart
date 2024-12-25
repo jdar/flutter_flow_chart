@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flow_chart/src/objects/croqui_widget.dart';
 import 'package:flutter_flow_chart/src/objects/economic_profile.dart';
 import 'package:flutter_flow_chart/src/objects/notes_widget.dart';
 import 'package:flutter_flow_chart/src/objects/oval_widget.dart';
@@ -206,6 +207,11 @@ class _ElementWidgetState extends State<ElementWidget> {
         element = RoomAllWidget(
           element: widget.element,
           widgetIcon: Icons.speaker_notes_sharp,
+        );
+        break;
+      case ElementKind.croqui:
+        element = CroquiWidget(
+          element: widget.element,
         );
         break;
       case ElementKind.kitchen:

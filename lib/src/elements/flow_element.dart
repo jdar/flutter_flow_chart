@@ -51,6 +51,7 @@ enum ElementKind {
   education_be,
   signature_1,
   signature_2,
+  croqui,
   //
   required_photos,
   optional_photos,
