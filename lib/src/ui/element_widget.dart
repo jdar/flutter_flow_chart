@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flow_chart/src/objects/croqui_widget.dart';
 import 'package:flutter_flow_chart/src/objects/economic_profile.dart';
+import 'package:flutter_flow_chart/src/objects/installation_audit_2_widget.dart';
 import 'package:flutter_flow_chart/src/objects/notes_widget.dart';
 import 'package:flutter_flow_chart/src/objects/oval_widget.dart';
 
@@ -286,6 +287,9 @@ class _ElementWidgetState extends State<ElementWidget> {
         break;
       case ElementKind.installation_audit:
         element = InstallationAuditWidget(element: widget.element);
+        break;
+      case ElementKind.installation_audit_2:
+        element = InstallationAudit2Widget(element: widget.element);
         break;
       case ElementKind.installation_checklist:
         element = InstallationChecklistWidget(element: widget.element);

@@ -59,6 +59,7 @@ enum ElementKind {
   home_inspection,
   electrical_inspection,
   installation_audit,
+  installation_audit_2,
   installation_checklist,
   economic_profile,
 }
