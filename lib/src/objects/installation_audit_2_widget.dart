@@ -34,7 +34,13 @@ class InstallationAudit2Widget extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Text("2",
-                    style: TextStyle(fontSize: 40, color: element.borderColor)),
+                    //style: TextStyle(fontSize: 40, color: element.borderColor)),
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontFamily: 'Impact',
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic)),
               ),
             ),
           ),
