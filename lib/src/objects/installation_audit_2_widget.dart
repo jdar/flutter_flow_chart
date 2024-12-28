@@ -14,37 +14,44 @@ class InstallationAudit2Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: element.size.width,
       height: element.size.height,
       child: Stack(
         children: [
+          // Background Custom Paint
           CustomPaint(
             size: element.size,
             painter: _Painter(
               element: element,
             ),
           ),
+          // FractionallySizedBox for "2"
           Positioned(
             right: 0,
             bottom: 0,
-            child: FractionallySizedBox(
-              widthFactor: 0.125,
-              heightFactor: 0.125,
+            child: SizedBox(
+              width: element.size.width * 0.725,
+              height: element.size.height * 0.725,
               child: Align(
                 alignment: Alignment.bottomRight,
-                child: Text("2",
-                    //style: TextStyle(fontSize: 40, color: element.borderColor)),
-                    style: TextStyle(
-                        fontSize: 40,
-                        fontFamily: 'Impact',
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic)),
+                child: Text(
+                  "2",
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontFamily: 'Impact',
+                    color: Colors.blue.withOpacity(0.7),
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
               ),
             ),
           ),
-          ElementTextWidget(element: element),
+          // Element Text Widget
+          Positioned.fill(
+            child: ElementTextWidget(element: element),
+          ),
         ],
       ),
     );
