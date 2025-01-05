@@ -198,6 +198,18 @@ class _ElementWidgetState extends State<ElementWidget> {
           widgetIcon: Icons.cast_for_education_rounded,
         );
         break;
+      case ElementKind.ticket:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.confirmation_number,
+        );
+        break;
+      case ElementKind.repair_agreement:
+        element = RoomAllWidget(
+          element: widget.element,
+          widgetIcon: Icons.handyman_outlined,
+        );
+        break;
       case ElementKind.signature_1:
         element = RoomAllWidget(
           element: widget.element,

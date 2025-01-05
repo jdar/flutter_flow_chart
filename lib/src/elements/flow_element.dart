@@ -49,6 +49,8 @@ enum ElementKind {
   questionnaire,
   affirmation,
   education_be,
+  ticket,
+  repair_agreement,
   signature_1,
   signature_2,
   croqui,
