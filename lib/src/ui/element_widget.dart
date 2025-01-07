@@ -201,7 +201,7 @@ class _ElementWidgetState extends State<ElementWidget> {
       case ElementKind.ticket:
         element = RoomAllWidget(
           element: widget.element,
-          widgetIcon: Icons.confirmation_number,
+          widgetIcon: Icons.loyalty,
         );
         break;
       case ElementKind.repair_agreement:
