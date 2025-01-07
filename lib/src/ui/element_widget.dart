@@ -223,8 +223,9 @@ class _ElementWidgetState extends State<ElementWidget> {
         );
         break;
       case ElementKind.croqui:
-        element = CroquiWidget(
+        element = RoomAllWidget(
           element: widget.element,
+          widgetIcon: Icons.draw_outlined,
         );
         break;
       case ElementKind.kitchen:
